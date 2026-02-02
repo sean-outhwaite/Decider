@@ -2,7 +2,7 @@ import { Image } from 'expo-image'
 import { Platform, StyleSheet } from 'react-native'
 
 import { ExternalLink } from '@/components/external-link'
-import ParallaxScrollView from '@/components/list-view'
+import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { Collapsible } from '@/components/ui/collapsible'
@@ -11,7 +11,7 @@ import { Fonts } from '@/constants/theme'
 
 export default function TabTwoScreen() {
   return (
-    <ParallaxScrollView
+    <ListView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
       headerImage={
         <IconSymbol
@@ -108,7 +108,7 @@ export default function TabTwoScreen() {
           ),
         })}
       </Collapsible>
-    </ParallaxScrollView>
+    </ListView>
   )
 }
 

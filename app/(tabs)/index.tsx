@@ -1,8 +1,15 @@
 import { Image } from 'expo-image'
-import { Button, FlatList, StyleSheet, Text, TextInput } from 'react-native'
+import {
+  Button,
+  FlatList,
+  GestureResponderEvent,
+  StyleSheet,
+  Text,
+  TextInput,
+} from 'react-native'
 
 import { HelloWave } from '@/components/hello-wave'
-import ParallaxScrollView from '@/components/list-view'
+import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { useState } from 'react'
@@ -18,7 +25,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <ParallaxScrollView
+    <ListView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
@@ -54,7 +61,7 @@ export default function HomeScreen() {
           renderItem={({ item }) => <Text>{item.key}</Text>}
         />
       </ThemedView>
-    </ParallaxScrollView>
+    </ListView>
   )
 }
 
