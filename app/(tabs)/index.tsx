@@ -57,8 +57,13 @@ export default function HomeScreen() {
       <ThemedView>
         <ThemedText type="title">Your Suggestions</ThemedText>
         <FlatList
+          style={styles.listContainer}
           data={suggestions}
-          renderItem={({ item }) => <Text>{item.key}</Text>}
+          renderItem={({ item }) => (
+            <ThemedView>
+              <Text style={styles.listItems}>{item.key}</Text>
+            </ThemedView>
+          )}
         />
       </ThemedView>
     </ListView>
@@ -81,5 +86,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  listContainer: {
+    padding: 10,
+  },
+  listItems: {
+    padding: 15,
+    marginVertical: 5,
+    backgroundColor: '#f0efefff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#ccc',
+    borderRadius: 8,
   },
 })
