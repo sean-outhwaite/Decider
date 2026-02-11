@@ -1,12 +1,5 @@
 import { Image } from 'expo-image'
-import {
-  Button,
-  FlatList,
-  GestureResponderEvent,
-  StyleSheet,
-  Text,
-  TextInput,
-} from 'react-native'
+import { Button, FlatList, StyleSheet, Text, TextInput } from 'react-native'
 
 import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
@@ -18,8 +11,8 @@ export default function HomeScreen() {
   const [submission, setSubmission] = useState('')
   const [suggestions, setSuggestions] = useState<{ key: string }[]>([])
 
-  const handleSubmit = (e: GestureResponderEvent) => {
-    e.preventDefault()
+  const handleSubmit = () => {
+    if (submission.trim() === '') return
     setSuggestions([...suggestions, { key: submission }])
     setSubmission('')
   }
@@ -47,12 +40,7 @@ export default function HomeScreen() {
           value={submission}
           onChangeText={setSubmission}
         />
-        <Button
-          title="Submit"
-          onPress={(e) => {
-            handleSubmit(e)
-          }}
-        />
+        <Button title="Submit" onPress={handleSubmit} />
       </ThemedView>
       <ThemedView>
         <ThemedText type="title">Your Suggestions</ThemedText>
