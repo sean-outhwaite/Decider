@@ -1,11 +1,10 @@
 import { Image } from 'expo-image'
-import { StyleSheet, TextInput } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
-import { Button } from '@react-navigation/elements'
 import { Link } from 'expo-router'
 
 export default function HomeScreen() {
@@ -23,56 +22,11 @@ export default function HomeScreen() {
         <ThemedText type="title">Decider</ThemedText>
         <HelloWave />
       </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Add a suggestion</ThemedText>
-      </ThemedView>
-      <ThemedView>
-        <TextInput placeholder="Enter your suggestion" />
-        <Button>Submit</Button>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction
-              title="Action"
-              icon="cube"
-              onPress={() => alert('Action pressed')}
-            />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">
-            npm run reset-project
-          </ThemedText>{' '}
-          to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>{' '}
-          directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
+      <ThemedView>
+        <ThemedText type="subtitle">This will be login screen</ThemedText>
+        <ThemedText type="link">
+          <Link href="/(tabs)">Home</Link>
         </ThemedText>
       </ThemedView>
     </ListView>

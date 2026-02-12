@@ -35,6 +35,19 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="review"
+        options={{
+          title: 'Review',
+          tabBarIcon: ({ color }) => (
+            <IconSymbol
+              size={28}
+              name="list.bullet.clipboard.fill"
+              color={color}
+            />
+          ),
+        }}
+      />
     </Tabs>
   )
 }
