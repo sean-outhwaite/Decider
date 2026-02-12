@@ -1,5 +1,5 @@
 import { Image } from 'expo-image'
-import { Button, FlatList, StyleSheet, Text, TextInput } from 'react-native'
+import { FlatList, Pressable, StyleSheet, Text } from 'react-native'
 
 import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
@@ -9,7 +9,11 @@ import { useState } from 'react'
 
 export default function HomeScreen() {
   const [submission, setSubmission] = useState('')
-  const [suggestions, setSuggestions] = useState<{ key: string }[]>([])
+  const [suggestions, setSuggestions] = useState<{ key: string }[]>([
+    { key: 'Suggestion 1' },
+    { key: 'Suggestion 2' },
+    { key: 'Suggestion 3' },
+  ])
 
   const handleSubmit = () => {
     if (submission.trim() === '') return
@@ -32,24 +36,23 @@ export default function HomeScreen() {
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Submit a suggestion</ThemedText>
+        <ThemedText type="subtitle">Review Suggestions</ThemedText>
       </ThemedView>
       <ThemedView>
-        <TextInput
-          placeholder="Enter your suggestion"
-          value={submission}
-          onChangeText={setSubmission}
-        />
-        <Button title="Submit" onPress={handleSubmit} />
-      </ThemedView>
-      <ThemedView>
-        <ThemedText type="title">Your Suggestions</ThemedText>
         <FlatList
           style={styles.listContainer}
           data={suggestions}
           renderItem={({ item }) => (
             <ThemedView>
               <Text style={styles.listItems}>{item.key}</Text>
+              <ThemedView style={styles.listItem}>
+                <Pressable style={styles.approveButton}>
+                  <ThemedText>Approve</ThemedText>
+                </Pressable>
+                <Pressable style={styles.rejectButton}>
+                  <ThemedText>Reject</ThemedText>
+                </Pressable>
+              </ThemedView>
             </ThemedView>
           )}
         />
@@ -85,5 +88,22 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     borderRadius: 8,
+  },
+  listItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  approveButton: {
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    padding: 10,
+    borderRadius: 5,
+  },
+  rejectButton: {
+    backgroundColor: '#f44336',
+    color: 'white',
+    padding: 10,
+    borderRadius: 5,
   },
 })
