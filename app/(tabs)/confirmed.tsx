@@ -5,14 +5,10 @@ import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
-import { useState } from 'react'
+import { useConfirmed } from '../providers/confirmed'
 
 export default function TabTwoScreen() {
-  const [suggestions, setSuggestions] = useState<{ key: string }[]>([
-    { key: 'Suggestion 1' },
-    { key: 'Suggestion 2' },
-    { key: 'Suggestion 3' },
-  ])
+  const { confirmed } = useConfirmed()
   return (
     <ListView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -31,7 +27,7 @@ export default function TabTwoScreen() {
         <ThemedText type="title">Ready to Watch</ThemedText>
         <FlatList
           style={styles.listContainer}
-          data={suggestions}
+          data={confirmed}
           renderItem={({ item }) => (
             <ThemedView>
               <Text style={styles.listItems}>{item.key}</Text>

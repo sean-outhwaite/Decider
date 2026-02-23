@@ -6,25 +6,28 @@ import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { useState } from 'react'
+import { useConfirmed } from '../providers/confirmed'
 
 export default function HomeScreen() {
-  const [submission, setSubmission] = useState('')
   const [suggestions, setSuggestions] = useState<{ key: string }[]>([
     { key: 'Suggestion 1' },
     { key: 'Suggestion 2' },
     { key: 'Suggestion 3' },
   ])
 
-  const handleSubmit = () => {
-    if (submission.trim() === '') return
-    setSuggestions([...suggestions, { key: submission }])
-    setSubmission('')
-  }
+  const { confirmed, setConfirmed } = useConfirmed()
 
   const handleReject = (index: number) => {
     const updatedSuggestions = [...suggestions]
     updatedSuggestions.splice(index, 1)
     setSuggestions(updatedSuggestions)
+  }
+
+  const handleApprove = (index: number) => {
+    const updatedSuggestions = [...suggestions]
+    const approvedItem = updatedSuggestions.splice(index, 1)[0]
+    setSuggestions(updatedSuggestions)
+    setConfirmed([...confirmed, approvedItem])
   }
 
   return (
@@ -53,7 +56,7 @@ export default function HomeScreen() {
               <Text style={styles.listItems}>{item.key}</Text>
               <ThemedView style={styles.listItem}>
                 <Pressable
-                  onPress={() => handleReject(suggestions.indexOf(item))}
+                  onPress={() => handleApprove(suggestions.indexOf(item))}
                   style={styles.approveButton}
                 >
                   <ThemedText>Approve</ThemedText>
