@@ -1,5 +1,5 @@
 import { Image } from 'expo-image'
-import { FlatList, StyleSheet, Text } from 'react-native'
+import { FlatList, Pressable, StyleSheet, Text } from 'react-native'
 
 import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
@@ -8,7 +8,14 @@ import { ThemedView } from '@/components/themed-view'
 import { useConfirmed } from '../providers/confirmed'
 
 export default function TabTwoScreen() {
-  const { confirmed } = useConfirmed()
+  const { confirmed, setConfirmed } = useConfirmed()
+
+  const handleDelete = (index: number) => {
+    const updatedConfirmed = [...confirmed]
+    updatedConfirmed.splice(index, 1)
+    setConfirmed(updatedConfirmed)
+  }
+
   return (
     <ListView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -30,7 +37,9 @@ export default function TabTwoScreen() {
           data={confirmed}
           renderItem={({ item }) => (
             <ThemedView>
-              <Text style={styles.listItems}>{item.key}</Text>
+              <Pressable onPress={() => handleDelete(confirmed.indexOf(item))}>
+                <Text style={styles.listItems}>{item.key}</Text>
+              </Pressable>
             </ThemedView>
           )}
         />
