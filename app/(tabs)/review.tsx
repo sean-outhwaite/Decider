@@ -21,6 +21,12 @@ export default function HomeScreen() {
     setSubmission('')
   }
 
+  const handleReject = (index: number) => {
+    const updatedSuggestions = [...suggestions]
+    updatedSuggestions.splice(index, 1)
+    setSuggestions(updatedSuggestions)
+  }
+
   return (
     <ListView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -46,10 +52,16 @@ export default function HomeScreen() {
             <ThemedView>
               <Text style={styles.listItems}>{item.key}</Text>
               <ThemedView style={styles.listItem}>
-                <Pressable style={styles.approveButton}>
+                <Pressable
+                  onPress={() => handleReject(suggestions.indexOf(item))}
+                  style={styles.approveButton}
+                >
                   <ThemedText>Approve</ThemedText>
                 </Pressable>
-                <Pressable style={styles.rejectButton}>
+                <Pressable
+                  onPress={() => handleReject(suggestions.indexOf(item))}
+                  style={styles.rejectButton}
+                >
                   <ThemedText>Reject</ThemedText>
                 </Pressable>
               </ThemedView>
