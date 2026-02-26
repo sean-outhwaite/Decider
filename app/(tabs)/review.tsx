@@ -5,29 +5,25 @@ import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
-import { useState } from 'react'
 import { useConfirmed } from '../providers/confirmed'
+import { useSuggestions } from '../providers/suggestions'
 
 export default function HomeScreen() {
-  const [suggestions, setSuggestions] = useState<{ key: string }[]>([
-    { key: 'Suggestion 1' },
-    { key: 'Suggestion 2' },
-    { key: 'Suggestion 3' },
-  ])
+  const { suggestions, removeSuggestion } = useSuggestions()
 
-  const { confirmed, setConfirmed } = useConfirmed()
+  const { addConfirmed } = useConfirmed()
 
   const handleReject = (index: number) => {
     const updatedSuggestions = [...suggestions]
-    updatedSuggestions.splice(index, 1)
-    setSuggestions(updatedSuggestions)
+    const itemToReject = updatedSuggestions.splice(index, 1)[0]
+    removeSuggestion(itemToReject.id)
   }
 
   const handleApprove = (index: number) => {
     const updatedSuggestions = [...suggestions]
     const approvedItem = updatedSuggestions.splice(index, 1)[0]
-    setSuggestions(updatedSuggestions)
-    setConfirmed([...confirmed, approvedItem])
+    removeSuggestion(approvedItem.id)
+    addConfirmed(approvedItem.title)
   }
 
   return (
@@ -53,7 +49,7 @@ export default function HomeScreen() {
           data={suggestions}
           renderItem={({ item }) => (
             <ThemedView>
-              <Text style={styles.listItems}>{item.key}</Text>
+              <Text style={styles.listItems}>{item.title}</Text>
               <ThemedView style={styles.listItem}>
                 <Pressable
                   onPress={() => handleApprove(suggestions.indexOf(item))}

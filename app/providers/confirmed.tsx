@@ -1,25 +1,56 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import * as SQLite from 'expo-sqlite'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react'
 
-type Confirmed = { key: string }
+type Confirmed = { id: number; title: string }
 
 type ConfirmedContextType = {
   confirmed: Confirmed[]
-  setConfirmed: React.Dispatch<React.SetStateAction<Confirmed[]>>
+  addConfirmed: (title: string) => void
+  removeConfirmed: (id: number) => void
 }
 
 const ConfirmedContext = createContext<ConfirmedContextType | undefined>(
   undefined,
 )
 
+const db = SQLite.openDatabaseSync('confirmed.db')
+
 export function ConfirmedProvider({ children }: { children: ReactNode }) {
-  const [confirmed, setConfirmed] = useState<Confirmed[]>([
-    { key: 'Confirmed 1' },
-    { key: 'Confirmed 2' },
-    { key: 'Confirmed 3' },
-  ])
+  const [confirmed, setConfirmed] = useState<Confirmed[]>([])
+
+  useEffect(() => {
+    // Create table if it doesn't exist
+    db.execSync(
+      'CREATE TABLE IF NOT EXISTS confirmed (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT);',
+    )
+    loadConfirmed()
+  }, [])
+
+  const loadConfirmed = () => {
+    const result = db.getAllSync<Confirmed>('SELECT * FROM confirmed;')
+    setConfirmed(result)
+  }
+
+  const addConfirmed = (title: string) => {
+    db.runSync('INSERT INTO confirmed (title) VALUES (?);', [title])
+    loadConfirmed() // Reload after insert
+  }
+
+  const removeConfirmed = (id: number) => {
+    db.runSync('DELETE FROM confirmed WHERE id = ?;', [id])
+    loadConfirmed() // Reload after delete
+  }
 
   return (
-    <ConfirmedContext.Provider value={{ confirmed, setConfirmed }}>
+    <ConfirmedContext.Provider
+      value={{ confirmed, addConfirmed, removeConfirmed }}
+    >
       {children}
     </ConfirmedContext.Provider>
   )

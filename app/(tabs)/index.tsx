@@ -6,14 +6,15 @@ import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { useState } from 'react'
+import { useSuggestions } from '../providers/suggestions'
 
 export default function HomeScreen() {
   const [submission, setSubmission] = useState('')
-  const [suggestions, setSuggestions] = useState<{ key: string }[]>([])
+  const { suggestions, addSuggestion } = useSuggestions()
 
   const handleSubmit = () => {
     if (submission.trim() === '') return
-    setSuggestions([...suggestions, { key: submission }])
+    addSuggestion(submission)
     setSubmission('')
   }
 
@@ -49,7 +50,7 @@ export default function HomeScreen() {
           data={suggestions}
           renderItem={({ item }) => (
             <ThemedView>
-              <Text style={styles.listItems}>{item.key}</Text>
+              <Text style={styles.listItems}>{item.title}</Text>
             </ThemedView>
           )}
         />

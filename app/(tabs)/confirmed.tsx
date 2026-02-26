@@ -8,12 +8,12 @@ import { ThemedView } from '@/components/themed-view'
 import { useConfirmed } from '../providers/confirmed'
 
 export default function TabTwoScreen() {
-  const { confirmed, setConfirmed } = useConfirmed()
+  const { confirmed, removeConfirmed } = useConfirmed()
 
   const handleDelete = (index: number) => {
     const updatedConfirmed = [...confirmed]
-    updatedConfirmed.splice(index, 1)
-    setConfirmed(updatedConfirmed)
+    const itemToDelete = updatedConfirmed.splice(index, 1)[0]
+    removeConfirmed(itemToDelete.id)
   }
 
   return (
@@ -38,7 +38,7 @@ export default function TabTwoScreen() {
           renderItem={({ item }) => (
             <ThemedView>
               <Pressable onPress={() => handleDelete(confirmed.indexOf(item))}>
-                <Text style={styles.listItems}>{item.key}</Text>
+                <Text style={styles.listItems}>{item.title}</Text>
               </Pressable>
             </ThemedView>
           )}
