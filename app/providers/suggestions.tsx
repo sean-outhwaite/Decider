@@ -7,12 +7,12 @@ import React, {
   useState,
 } from 'react'
 
-type Suggestion = { id: number; title: string }
+type Suggestion = { id: number; title: string; submittedBy: string }
 
 type SuggestionsContextType = {
   suggestions: Suggestion[]
-  addSuggestion: (title: string) => void
-  removeSuggestion: (id: number) => void
+  addSuggestion: (title: string, submittedBy: string) => void
+  removeSuggestion: (id: number, user: string) => void
 }
 
 const SuggestionsContext = createContext<SuggestionsContextType | undefined>(
@@ -25,26 +25,30 @@ export function SuggestionsProvider({ children }: { children: ReactNode }) {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
 
   useEffect(() => {
-    // Create table if it doesn't exist
     db.execSync(
-      'CREATE TABLE IF NOT EXISTS suggestions (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT);',
+      'CREATE TABLE IF NOT EXISTS suggestions (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, submitted_by TEXT);',
     )
     loadSuggestions()
   }, [])
 
   const loadSuggestions = () => {
-    const result = db.getAllSync<Suggestion>('SELECT * FROM suggestions;')
+    const result = db.getAllSync<Suggestion>(
+      'SELECT id, title, submitted_by as submittedBy FROM suggestions;',
+    )
     setSuggestions(result)
   }
 
-  const addSuggestion = (title: string) => {
-    db.runSync('INSERT INTO suggestions (title) VALUES (?);', [title])
-    loadSuggestions() // Reload after insert
+  const addSuggestion = (title: string, submittedBy: string) => {
+    db.runSync('INSERT INTO suggestions (title, submitted_by) VALUES (?, ?);', [
+      title,
+      submittedBy,
+    ])
+    loadSuggestions()
   }
 
   const removeSuggestion = (id: number) => {
     db.runSync('DELETE FROM suggestions WHERE id = ?;', [id])
-    loadSuggestions() // Reload after delete
+    loadSuggestions()
   }
 
   return (

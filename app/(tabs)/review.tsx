@@ -6,23 +6,29 @@ import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { useConfirmed } from '../providers/confirmed'
+import { usePlatform } from '../providers/platform'
 import { useSuggestions } from '../providers/suggestions'
 
 export default function HomeScreen() {
   const { suggestions, removeSuggestion } = useSuggestions()
+  const { platform } = usePlatform()
+  const user = platform === 'ios' ? 'Swan' : 'Sab'
+  const filteredSuggestions = suggestions.filter(
+    (suggestion) => suggestion.submittedBy !== user,
+  )
 
   const { addConfirmed } = useConfirmed()
 
   const handleReject = (index: number) => {
     const updatedSuggestions = [...suggestions]
     const itemToReject = updatedSuggestions.splice(index, 1)[0]
-    removeSuggestion(itemToReject.id)
+    removeSuggestion(itemToReject.id, user)
   }
 
   const handleApprove = (index: number) => {
     const updatedSuggestions = [...suggestions]
     const approvedItem = updatedSuggestions.splice(index, 1)[0]
-    removeSuggestion(approvedItem.id)
+    removeSuggestion(approvedItem.id, user)
     addConfirmed(approvedItem.title)
   }
 
@@ -46,7 +52,7 @@ export default function HomeScreen() {
       <ThemedView>
         <FlatList
           style={styles.listContainer}
-          data={suggestions}
+          data={filteredSuggestions}
           renderItem={({ item }) => (
             <ThemedView>
               <Text style={styles.listItems}>{item.title}</Text>

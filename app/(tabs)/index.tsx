@@ -6,16 +6,24 @@ import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { useState } from 'react'
+import { usePlatform } from '../providers/platform'
 import { useSuggestions } from '../providers/suggestions'
 
 export default function HomeScreen() {
   const [submission, setSubmission] = useState('')
   const { suggestions, addSuggestion } = useSuggestions()
+  const user = usePlatform().platform === 'ios' ? 'Swan' : 'Sab'
+  console.log(suggestions)
+
+  const filteredSuggestions = suggestions.filter(
+    (suggestion) => suggestion.submittedBy === user,
+  )
 
   const handleSubmit = () => {
     if (submission.trim() === '') return
-    addSuggestion(submission)
+    addSuggestion(submission, user)
     setSubmission('')
+    console.log(user, suggestions)
   }
 
   return (
@@ -47,7 +55,7 @@ export default function HomeScreen() {
         <ThemedText type="title">Your Suggestions</ThemedText>
         <FlatList
           style={styles.listContainer}
-          data={suggestions}
+          data={filteredSuggestions}
           renderItem={({ item }) => (
             <ThemedView>
               <Text style={styles.listItems}>{item.title}</Text>
