@@ -1,4 +1,4 @@
-import * as SQLite from 'expo-sqlite'
+import firestore from '@react-native-firebase/firestore'
 import React, {
   createContext,
   ReactNode,
@@ -7,44 +7,45 @@ import React, {
   useState,
 } from 'react'
 
-type Confirmed = { id: number; title: string }
+type Confirmed = { id: string; title: string }
 
 type ConfirmedContextType = {
   confirmed: Confirmed[]
   addConfirmed: (title: string) => void
-  removeConfirmed: (id: number) => void
+  removeConfirmed: (id: string) => void
 }
 
 const ConfirmedContext = createContext<ConfirmedContextType | undefined>(
   undefined,
 )
 
-const db = SQLite.openDatabaseSync('confirmed.db')
+const confirmedRef = firestore().collection('confirmed')
 
 export function ConfirmedProvider({ children }: { children: ReactNode }) {
   const [confirmed, setConfirmed] = useState<Confirmed[]>([])
 
   useEffect(() => {
-    // Create table if it doesn't exist
-    db.execSync(
-      'CREATE TABLE IF NOT EXISTS confirmed (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT);',
-    )
-    loadConfirmed()
+    const unsubscribe = confirmedRef.onSnapshot((snapshot) => {
+      if (snapshot) {
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        setConfirmed(data as Confirmed[])
+      } else {
+        console.error('Snapshot is null')
+        setConfirmed([])
+      }
+    })
+    return unsubscribe
   }, [])
 
-  const loadConfirmed = () => {
-    const result = db.getAllSync<Confirmed>('SELECT * FROM confirmed;')
-    setConfirmed(result)
+  const addConfirmed = async (title: string) => {
+    await confirmedRef.add({ title })
   }
 
-  const addConfirmed = (title: string) => {
-    db.runSync('INSERT INTO confirmed (title) VALUES (?);', [title])
-    loadConfirmed() // Reload after insert
-  }
-
-  const removeConfirmed = (id: number) => {
-    db.runSync('DELETE FROM confirmed WHERE id = ?;', [id])
-    loadConfirmed() // Reload after delete
+  const removeConfirmed = (id: string) => {
+    confirmedRef.doc(id).delete()
   }
 
   return (
