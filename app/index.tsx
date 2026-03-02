@@ -34,7 +34,7 @@ export default function HomeScreen() {
       >
         <ThemedView style={styles.titleContainer}>
           <Pressable onPress={() => signInAnonymously(getAuth())}>
-            <ThemedText>Login</ThemedText>
+            <ThemedText>Tap to Login</ThemedText>
           </Pressable>
         </ThemedView>
       </ListView>

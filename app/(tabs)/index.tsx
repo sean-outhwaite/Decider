@@ -1,8 +1,9 @@
 import { Image } from 'expo-image'
-import { Button, FlatList, StyleSheet, Text, TextInput } from 'react-native'
+import { Button, FlatList, StyleSheet, Text } from 'react-native'
 
 import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
+import { ThemedTextInput } from '@/components/themed-input'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { useState } from 'react'
@@ -44,7 +45,7 @@ export default function HomeScreen() {
         <ThemedText type="subtitle">Submit a suggestion</ThemedText>
       </ThemedView>
       <ThemedView>
-        <TextInput
+        <ThemedTextInput
           placeholder="Enter your suggestion"
           value={submission}
           onChangeText={setSubmission}
