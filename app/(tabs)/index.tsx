@@ -14,7 +14,6 @@ export default function HomeScreen() {
   const [submission, setSubmission] = useState('')
   const { suggestions, addSuggestion } = useSuggestions()
   const user = usePlatform().platform === 'ios' ? 'Swan' : 'Sab'
-  console.log(suggestions)
 
   const filteredSuggestions = suggestions.filter(
     (suggestion) => suggestion.submittedBy === user,
@@ -24,7 +23,6 @@ export default function HomeScreen() {
     if (submission.trim() === '') return
     addSuggestion(submission, user)
     setSubmission('')
-    console.log(user, suggestions)
   }
 
   return (
