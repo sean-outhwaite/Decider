@@ -5,29 +5,12 @@ import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
-import {
-  FirebaseAuthTypes,
-  getAuth,
-  onAuthStateChanged,
-  signInAnonymously,
-} from '@react-native-firebase/auth'
+import { getAuth, signInAnonymously } from '@react-native-firebase/auth'
 import { Link } from 'expo-router'
-import { useEffect, useState } from 'react'
+import { useAuth } from './providers/auth'
 
 export default function HomeScreen() {
-  const [initializing, setInitializing] = useState(true)
-  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null)
-
-  // Handle user state changes
-  function handleAuthStateChanged(user: FirebaseAuthTypes.User | null) {
-    setUser(user)
-    if (initializing) setInitializing(false)
-  }
-
-  useEffect(() => {
-    const subscriber = onAuthStateChanged(getAuth(), handleAuthStateChanged)
-    return subscriber // unsubscribe on unmount
-  }, [])
+  const { user, initializing } = useAuth()
 
   if (initializing) return null
 
