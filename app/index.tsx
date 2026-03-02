@@ -1,16 +1,23 @@
 import { Image } from 'expo-image'
 import { Pressable, StyleSheet } from 'react-native'
 
-import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { getAuth, signInAnonymously } from '@react-native-firebase/auth'
-import { Link } from 'expo-router'
+import { useRouter } from 'expo-router'
+import { useEffect } from 'react'
 import { useAuth } from './providers/auth'
 
 export default function HomeScreen() {
   const { user, initializing } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!initializing && user) {
+      router.navigate('/(tabs)')
+    }
+  }, [user, initializing, router])
 
   if (initializing) return null
 
@@ -34,29 +41,7 @@ export default function HomeScreen() {
     )
   }
 
-  return (
-    <ListView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Decider</ThemedText>
-        <HelloWave />
-      </ThemedView>
-
-      <ThemedView>
-        <ThemedText type="subtitle">Loggged in as {user.email}</ThemedText>
-        <ThemedText type="link">
-          <Link href="/(tabs)">Home</Link>
-        </ThemedText>
-      </ThemedView>
-    </ListView>
-  )
+  return null
 }
 
 const styles = StyleSheet.create({
