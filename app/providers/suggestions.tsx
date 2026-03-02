@@ -1,4 +1,4 @@
-import * as SQLite from 'expo-sqlite'
+import firestore from '@react-native-firebase/firestore'
 import React, {
   createContext,
   ReactNode,
@@ -7,48 +7,45 @@ import React, {
   useState,
 } from 'react'
 
-type Suggestion = { id: number; title: string; submittedBy: string }
+type Suggestion = { id: string; title: string; submittedBy: string }
 
 type SuggestionsContextType = {
   suggestions: Suggestion[]
   addSuggestion: (title: string, submittedBy: string) => void
-  removeSuggestion: (id: number, user: string) => void
+  removeSuggestion: (id: string, user: string) => void
 }
 
 const SuggestionsContext = createContext<SuggestionsContextType | undefined>(
   undefined,
 )
 
-const db = SQLite.openDatabaseSync('suggestions.db')
+const suggestionsRef = firestore().collection('suggestions')
 
 export function SuggestionsProvider({ children }: { children: ReactNode }) {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
 
   useEffect(() => {
-    db.execSync(
-      'CREATE TABLE IF NOT EXISTS suggestions (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, submitted_by TEXT);',
-    )
-    loadSuggestions()
+    const unsubscribe = suggestionsRef.onSnapshot((snapshot) => {
+      if (snapshot) {
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+        setSuggestions(data as Suggestion[])
+      } else {
+        console.error('Snapshot is null')
+        setSuggestions([])
+      }
+    })
+    return unsubscribe
   }, [])
 
-  const loadSuggestions = () => {
-    const result = db.getAllSync<Suggestion>(
-      'SELECT id, title, submitted_by as submittedBy FROM suggestions;',
-    )
-    setSuggestions(result)
+  const addSuggestion = async (title: string, submittedBy: string) => {
+    await suggestionsRef.add({ title, submittedBy })
   }
 
-  const addSuggestion = (title: string, submittedBy: string) => {
-    db.runSync('INSERT INTO suggestions (title, submitted_by) VALUES (?, ?);', [
-      title,
-      submittedBy,
-    ])
-    loadSuggestions()
-  }
-
-  const removeSuggestion = (id: number) => {
-    db.runSync('DELETE FROM suggestions WHERE id = ?;', [id])
-    loadSuggestions()
+  const removeSuggestion = async (id: string) => {
+    await suggestionsRef.doc(id).delete()
   }
 
   return (
