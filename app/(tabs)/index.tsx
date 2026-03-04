@@ -7,13 +7,20 @@ import { ThemedTextInput } from '@/components/themed-input'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { useState } from 'react'
+import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable'
 import { usePlatform } from '../providers/platform'
 import { useSuggestions } from '../providers/suggestions'
 
 export default function HomeScreen() {
   const [submission, setSubmission] = useState('')
-  const { suggestions, addSuggestion } = useSuggestions()
+  const { suggestions, addSuggestion, removeSuggestion } = useSuggestions()
   const user = usePlatform().platform === 'ios' ? 'Swan' : 'Sab'
+
+  const handleDelete = (index: number) => {
+    const updatedSuggestions = [...suggestions]
+    const itemToDelete = updatedSuggestions.splice(index, 1)[0]
+    removeSuggestion(itemToDelete.id)
+  }
 
   const filteredSuggestions = suggestions.filter(
     (suggestion) => suggestion.submittedBy === user,
@@ -56,9 +63,18 @@ export default function HomeScreen() {
           style={styles.listContainer}
           data={filteredSuggestions}
           renderItem={({ item }) => (
-            <ThemedView>
-              <Text style={styles.listItems}>{item.title}</Text>
-            </ThemedView>
+            <Swipeable
+              renderRightActions={() => (
+                <ThemedText style={{ padding: 20 }}>Delete</ThemedText>
+              )}
+              onSwipeableOpen={() => {
+                handleDelete(filteredSuggestions.indexOf(item))
+              }}
+            >
+              <ThemedView>
+                <Text style={styles.listItems}>{item.title}</Text>
+              </ThemedView>
+            </Swipeable>
           )}
         />
       </ThemedView>

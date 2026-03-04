@@ -12,7 +12,7 @@ type Suggestion = { id: string; title: string; submittedBy: string }
 type SuggestionsContextType = {
   suggestions: Suggestion[]
   addSuggestion: (title: string, submittedBy: string) => void
-  removeSuggestion: (id: string, user: string) => void
+  removeSuggestion: (id: string) => void
 }
 
 const SuggestionsContext = createContext<SuggestionsContextType | undefined>(
