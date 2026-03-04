@@ -22,13 +22,13 @@ export default function HomeScreen() {
   const handleReject = (index: number) => {
     const updatedSuggestions = [...suggestions]
     const itemToReject = updatedSuggestions.splice(index, 1)[0]
-    removeSuggestion(itemToReject.id, user)
+    removeSuggestion(itemToReject.id)
   }
 
   const handleApprove = (index: number) => {
     const updatedSuggestions = [...suggestions]
     const approvedItem = updatedSuggestions.splice(index, 1)[0]
-    removeSuggestion(approvedItem.id, user)
+    removeSuggestion(approvedItem.id)
     addConfirmed(approvedItem.title)
   }
 
