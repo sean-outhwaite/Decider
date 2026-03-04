@@ -55,7 +55,7 @@ export default function HomeScreen() {
           value={submission}
           onChangeText={setSubmission}
         />
-        <Button title="Submit" onPress={handleSubmit} />
+        <Button color="#d99eee" title="Submit" onPress={handleSubmit} />
       </ThemedView>
       <ThemedView>
         <ThemedText type="title">Your Suggestions</ThemedText>
