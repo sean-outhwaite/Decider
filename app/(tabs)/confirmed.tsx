@@ -1,10 +1,10 @@
 import { HelloWave } from '@/components/hello-wave'
+import ListItemSwipeable from '@/components/list-item-swipeable'
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { Image } from 'expo-image'
 import { FlatList, StyleSheet, Text } from 'react-native'
-import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable'
 import Reanimated, {
   interpolate,
   SharedValue,
@@ -56,9 +56,8 @@ export default function TabTwoScreen() {
           style={styles.listContainer}
           data={confirmed}
           renderItem={({ item }) => (
-            <Swipeable
+            <ListItemSwipeable
               childrenContainerStyle={{ flex: 1 }}
-              renderRightActions={RightAction}
               onSwipeableOpen={() => {
                 handleDelete(confirmed.indexOf(item))
               }}
@@ -70,7 +69,7 @@ export default function TabTwoScreen() {
               >
                 <Text style={styles.listItems}>{item.title}</Text>
               </ThemedView>
-            </Swipeable>
+            </ListItemSwipeable>
           )}
         />
       </ThemedView>
