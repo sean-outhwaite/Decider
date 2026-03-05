@@ -5,11 +5,6 @@ import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { Image } from 'expo-image'
 import { FlatList, StyleSheet, Text } from 'react-native'
-import Reanimated, {
-  interpolate,
-  SharedValue,
-  useAnimatedStyle,
-} from 'react-native-reanimated'
 import { useConfirmed } from '../providers/confirmed'
 
 export default function TabTwoScreen() {
@@ -19,21 +14,6 @@ export default function TabTwoScreen() {
     const updatedConfirmed = [...confirmed]
     const itemToDelete = updatedConfirmed.splice(index, 1)[0]
     removeConfirmed(itemToDelete.id)
-  }
-
-  function RightAction(prog: SharedValue<number>, drag: SharedValue<number>) {
-    const styleAnimation = useAnimatedStyle(() => {
-      const width = interpolate(prog.value, [0, 1], [0, 100], 'clamp')
-      return {
-        width,
-      }
-    })
-
-    return (
-      <Reanimated.View style={[styles.rightAction, styleAnimation]}>
-        <Text style={styles.rightActionText}>Delete</Text>
-      </Reanimated.View>
-    )
   }
 
   return (
@@ -57,7 +37,6 @@ export default function TabTwoScreen() {
           data={confirmed}
           renderItem={({ item }) => (
             <ListItemSwipeable
-              childrenContainerStyle={{ flex: 1 }}
               onSwipeableOpen={() => {
                 handleDelete(confirmed.indexOf(item))
               }}
@@ -101,19 +80,5 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
     borderRadius: 8,
-  },
-  rightAction: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    padding: 15,
-    marginVertical: 5,
-    backgroundColor: 'red',
-    borderTopRightRadius: 8,
-    borderBottomRightRadius: 8,
-  },
-  rightActionText: {
-    color: 'white',
-    fontWeight: 'bold',
   },
 })

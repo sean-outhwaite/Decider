@@ -1,13 +1,12 @@
-import { Image } from 'expo-image'
-import { Button, FlatList, StyleSheet, Text } from 'react-native'
-
 import { HelloWave } from '@/components/hello-wave'
+import ListItemSwipeable from '@/components/list-item-swipeable'
 import ListView from '@/components/list-view'
 import { ThemedTextInput } from '@/components/themed-input'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
+import { Image } from 'expo-image'
 import { useState } from 'react'
-import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable'
+import { Button, FlatList, StyleSheet, Text } from 'react-native'
 import { usePlatform } from '../providers/platform'
 import { useSuggestions } from '../providers/suggestions'
 
@@ -63,10 +62,7 @@ export default function HomeScreen() {
           style={styles.listContainer}
           data={filteredSuggestions}
           renderItem={({ item }) => (
-            <Swipeable
-              renderRightActions={() => (
-                <ThemedText style={{ padding: 20 }}>Delete</ThemedText>
-              )}
+            <ListItemSwipeable
               onSwipeableOpen={() => {
                 handleDelete(filteredSuggestions.indexOf(item))
               }}
@@ -74,7 +70,7 @@ export default function HomeScreen() {
               <ThemedView>
                 <Text style={styles.listItems}>{item.title}</Text>
               </ThemedView>
-            </Swipeable>
+            </ListItemSwipeable>
           )}
         />
       </ThemedView>

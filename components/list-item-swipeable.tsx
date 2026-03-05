@@ -9,17 +9,15 @@ import Reanimated, {
 } from 'react-native-reanimated'
 
 type ListItemSwipeableProps = {
-  childrenContainerStyle?: SwipeableProps['childrenContainerStyle']
   onSwipeableOpen: SwipeableProps['onSwipeableOpen']
   children: React.ReactNode
 }
 
 export default function ListItemSwipeable({
-  childrenContainerStyle,
   onSwipeableOpen,
   children,
 }: ListItemSwipeableProps) {
-  function RightAction(prog: SharedValue<number>, drag: SharedValue<number>) {
+  function RightAction(prog: SharedValue<number>) {
     const styleAnimation = useAnimatedStyle(() => {
       const width = interpolate(prog.value, [0, 1], [0, 100], 'clamp')
       return {
@@ -35,7 +33,7 @@ export default function ListItemSwipeable({
   }
   return (
     <Swipeable
-      childrenContainerStyle={childrenContainerStyle}
+      childrenContainerStyle={{ flex: 1 }}
       onSwipeableOpen={onSwipeableOpen}
       renderRightActions={RightAction}
     >
