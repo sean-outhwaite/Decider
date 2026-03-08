@@ -1,5 +1,5 @@
 import { Image } from 'expo-image'
-import { FlatList, Pressable, StyleSheet, Text } from 'react-native'
+import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
 
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
@@ -49,22 +49,24 @@ export default function HomeScreen() {
           style={styles.listContainer}
           data={filteredSuggestions}
           renderItem={({ item }) => (
-            <ThemedView>
-              <Text style={styles.listItems}>{item.title}</Text>
-              <ThemedView style={styles.listItem}>
+            <ThemedView style={styles.listItems}>
+              <Text style={styles.listText}>{item.title}</Text>
+              <View style={styles.buttonRow}>
                 <Pressable
                   onPress={() => handleApprove(suggestions.indexOf(item))}
                   style={styles.approveButton}
                 >
-                  <ThemedText>Approve</ThemedText>
+                  <ThemedText type="defaultSemiBold">Approve</ThemedText>
                 </Pressable>
                 <Pressable
                   onPress={() => handleReject(suggestions.indexOf(item))}
                   style={styles.rejectButton}
                 >
-                  <ThemedText>Reject</ThemedText>
+                  <ThemedText style={styles.buttonText} type="defaultSemiBold">
+                    X
+                  </ThemedText>
                 </Pressable>
-              </ThemedView>
+              </View>
             </ThemedView>
           )}
         />
@@ -94,6 +96,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   listItems: {
+    backgroundColor: '#f0efefff',
+    borderRadius: 8,
+    marginBottom: 8,
+    padding: 10,
+  },
+  listText: {
     padding: 15,
     marginVertical: 5,
     backgroundColor: '#f0efefff',
@@ -101,21 +109,27 @@ const styles = StyleSheet.create({
     borderBottomColor: '#ccc',
     borderRadius: 8,
   },
-  listItem: {
+  buttonRow: {
+    margin: 5,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     alignItems: 'center',
+  },
+  buttonText: {
+    color: '#ffffffff',
   },
   approveButton: {
     backgroundColor: '#4CAF50',
-    color: 'white',
     padding: 10,
     borderRadius: 5,
+    width: 100,
+    alignItems: 'center',
   },
   rejectButton: {
-    backgroundColor: '#f44336',
-    color: 'white',
+    backgroundColor: '#ff5a4eff',
     padding: 10,
     borderRadius: 5,
+    width: 50,
+    alignItems: 'center',
   },
 })
