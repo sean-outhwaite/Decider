@@ -36,7 +36,10 @@ export function ThemedTextInput({
 const styles = StyleSheet.create({
   default: {
     fontSize: 16,
-    lineHeight: 24,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 4,
+    padding: 8,
   },
   defaultSemiBold: {
     fontSize: 16,

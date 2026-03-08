@@ -50,6 +50,7 @@ export default function HomeScreen() {
       </ThemedView>
       <ThemedView>
         <ThemedTextInput
+          type="default"
           placeholder="Enter your suggestion"
           value={submission}
           onChangeText={setSubmission}
