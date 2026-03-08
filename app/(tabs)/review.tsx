@@ -1,7 +1,6 @@
 import { Image } from 'expo-image'
 import { FlatList, Pressable, StyleSheet, Text } from 'react-native'
 
-import { HelloWave } from '@/components/hello-wave'
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
@@ -42,10 +41,6 @@ export default function HomeScreen() {
         />
       }
     >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Decider</ThemedText>
-        <HelloWave />
-      </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Review Suggestions</ThemedText>
       </ThemedView>

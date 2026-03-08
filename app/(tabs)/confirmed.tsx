@@ -1,4 +1,3 @@
-import { HelloWave } from '@/components/hello-wave'
 import ListItemSwipeable from '@/components/list-item-swipeable'
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
@@ -26,10 +25,6 @@ export default function TabTwoScreen() {
         />
       }
     >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Decider</ThemedText>
-        <HelloWave />
-      </ThemedView>
       <ThemedView>
         <ThemedText type="title">Ready to Watch</ThemedText>
         <FlatList
