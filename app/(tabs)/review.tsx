@@ -1,5 +1,5 @@
 import { Image } from 'expo-image'
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
@@ -45,11 +45,9 @@ export default function HomeScreen() {
         <ThemedText type="subtitle">Review Suggestions</ThemedText>
       </ThemedView>
       <ThemedView>
-        <FlatList
-          style={styles.listContainer}
-          data={filteredSuggestions}
-          renderItem={({ item }) => (
-            <ThemedView style={styles.listItems}>
+        <View style={styles.listContainer}>
+          {filteredSuggestions.map((item) => (
+            <ThemedView key={item.id} style={styles.listItems}>
               <Text style={styles.listText}>{item.title}</Text>
               <View style={styles.buttonRow}>
                 <Pressable
@@ -68,8 +66,8 @@ export default function HomeScreen() {
                 </Pressable>
               </View>
             </ThemedView>
-          )}
-        />
+          ))}
+        </View>
       </ThemedView>
     </ListView>
   )

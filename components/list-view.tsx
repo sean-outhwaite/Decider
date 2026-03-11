@@ -1,5 +1,5 @@
 import type { PropsWithChildren, ReactElement } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 
 import { ThemedView } from '@/components/themed-view'
 import { useColorScheme } from '@/hooks/use-color-scheme'
@@ -21,7 +21,7 @@ export default function ListView({
   const colorScheme = useColorScheme() ?? 'light'
 
   return (
-    <View style={{ backgroundColor, flex: 1 }}>
+    <ScrollView style={{ backgroundColor, flex: 1 }}>
       <View
         style={[
           styles.header,
@@ -31,7 +31,7 @@ export default function ListView({
         {headerImage}
       </View>
       <ThemedView style={styles.content}>{children}</ThemedView>
-    </View>
+    </ScrollView>
   )
 }
 

@@ -3,7 +3,7 @@ import ListView from '@/components/list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { Image } from 'expo-image'
-import { FlatList, StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { useConfirmed } from '../providers/confirmed'
 
 export default function TabTwoScreen() {
@@ -27,11 +27,10 @@ export default function TabTwoScreen() {
     >
       <ThemedView>
         <ThemedText type="title">Ready to Watch</ThemedText>
-        <FlatList
-          style={styles.listContainer}
-          data={confirmed}
-          renderItem={({ item }) => (
+        <View style={styles.listContainer}>
+          {confirmed.map((item) => (
             <ListItemSwipeable
+              key={item.id}
               onSwipeableOpen={() => {
                 handleDelete(confirmed.indexOf(item))
               }}
@@ -44,8 +43,8 @@ export default function TabTwoScreen() {
                 <Text style={styles.listItems}>{item.title}</Text>
               </ThemedView>
             </ListItemSwipeable>
-          )}
-        />
+          ))}
+        </View>
       </ThemedView>
     </ListView>
   )

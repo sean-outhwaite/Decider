@@ -6,7 +6,7 @@ import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { Image } from 'expo-image'
 import { useState } from 'react'
-import { Button, FlatList, StyleSheet, Text } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import { usePlatform } from '../providers/platform'
 import { useSuggestions } from '../providers/suggestions'
 
@@ -59,11 +59,10 @@ export default function HomeScreen() {
       </ThemedView>
       <ThemedView>
         <ThemedText type="title">Your Suggestions</ThemedText>
-        <FlatList
-          style={styles.listContainer}
-          data={filteredSuggestions}
-          renderItem={({ item }) => (
+        <View style={styles.listContainer}>
+          {filteredSuggestions.map((item) => (
             <ListItemSwipeable
+              key={item.id}
               onSwipeableOpen={() => {
                 handleDelete(filteredSuggestions.indexOf(item))
               }}
@@ -72,8 +71,8 @@ export default function HomeScreen() {
                 <Text style={styles.listItems}>{item.title}</Text>
               </ThemedView>
             </ListItemSwipeable>
-          )}
-        />
+          ))}
+        </View>
       </ThemedView>
     </ListView>
   )
