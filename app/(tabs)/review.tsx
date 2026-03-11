@@ -9,7 +9,7 @@ import { usePlatform } from '../providers/platform'
 import { useSuggestions } from '../providers/suggestions'
 
 export default function HomeScreen() {
-  const { suggestions, removeSuggestion } = useSuggestions()
+  const { suggestions, archiveSuggestion, removeSuggestion } = useSuggestions()
   const { platform } = usePlatform()
   const user = platform === 'ios' ? 'Swan' : 'Sab'
   const filteredSuggestions = suggestions.filter(
@@ -21,7 +21,7 @@ export default function HomeScreen() {
   const handleReject = (index: number) => {
     const updatedSuggestions = [...suggestions]
     const itemToReject = updatedSuggestions.splice(index, 1)[0]
-    removeSuggestion(itemToReject.id)
+    archiveSuggestion(itemToReject.id)
   }
 
   const handleApprove = (index: number) => {

@@ -7,12 +7,18 @@ import React, {
   useState,
 } from 'react'
 
-type Suggestion = { id: string; title: string; submittedBy: string }
+type Suggestion = {
+  id: string
+  title: string
+  submittedBy: string
+  archived?: boolean
+}
 
 type SuggestionsContextType = {
   suggestions: Suggestion[]
   addSuggestion: (title: string, submittedBy: string) => void
   removeSuggestion: (id: string) => void
+  archiveSuggestion: (id: string) => void
 }
 
 const SuggestionsContext = createContext<SuggestionsContextType | undefined>(
@@ -27,10 +33,12 @@ export function SuggestionsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const unsubscribe = suggestionsRef.onSnapshot((snapshot) => {
       if (snapshot) {
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
+        const data = snapshot.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...(doc.data() as Omit<Suggestion, 'id'>),
+          }))
+          .filter((item) => !item.archived)
         setSuggestions(data as Suggestion[])
       } else {
         console.error('Snapshot is null')
@@ -48,9 +56,18 @@ export function SuggestionsProvider({ children }: { children: ReactNode }) {
     await suggestionsRef.doc(id).delete()
   }
 
+  const archiveSuggestion = async (id: string) => {
+    await suggestionsRef.doc(id).set({ archived: true }, { merge: true })
+  }
+
   return (
     <SuggestionsContext.Provider
-      value={{ suggestions, addSuggestion, removeSuggestion }}
+      value={{
+        suggestions,
+        addSuggestion,
+        removeSuggestion,
+        archiveSuggestion,
+      }}
     >
       {children}
     </SuggestionsContext.Provider>
