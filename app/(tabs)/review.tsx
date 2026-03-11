@@ -54,7 +54,9 @@ export default function HomeScreen() {
                   onPress={() => handleApprove(suggestions.indexOf(item))}
                   style={styles.approveButton}
                 >
-                  <ThemedText type="defaultSemiBold">Approve</ThemedText>
+                  <ThemedText style={styles.buttonText} type="defaultSemiBold">
+                    Approve
+                  </ThemedText>
                 </Pressable>
                 <Pressable
                   onPress={() => handleReject(suggestions.indexOf(item))}
@@ -94,40 +96,45 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   listItems: {
-    backgroundColor: '#f0efefff',
+    backgroundColor: '#3b3b3bff',
     borderRadius: 8,
     marginBottom: 8,
-    padding: 10,
+    padding: 0,
+    overflow: 'hidden',
+    elevation: 0,
+    shadowColor: 'transparent',
   },
   listText: {
+    color: '#ffffffff',
     padding: 15,
-    marginVertical: 5,
-    backgroundColor: '#f0efefff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    borderRadius: 8,
   },
   buttonRow: {
-    margin: 5,
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center',
+    width: '100%',
+    alignItems: 'stretch',
   },
   buttonText: {
     color: '#ffffffff',
+    fontSize: 16,
   },
   approveButton: {
     backgroundColor: '#4CAF50',
-    padding: 10,
-    borderRadius: 5,
-    width: 100,
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 0,
   },
   rejectButton: {
     backgroundColor: '#ff5a4eff',
-    padding: 10,
-    borderRadius: 5,
-    width: 50,
+    flex: 1,
     alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    borderBottomRightRadius: 8,
+    borderBottomLeftRadius: 0,
+    elevation: 0,
+    shadowColor: 'transparent',
   },
 })
