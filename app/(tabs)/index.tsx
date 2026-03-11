@@ -36,7 +36,7 @@ export default function HomeScreen() {
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
       headerImage={
         <Image
-          source={require('@/assets/images/partial-react-logo.png')}
+          source={require('@/assets/images/splash.png')}
           style={styles.reactLogo}
         />
       }
@@ -58,7 +58,9 @@ export default function HomeScreen() {
         <Button color="#d99eee" title="Submit" onPress={handleSubmit} />
       </ThemedView>
       <ThemedView>
-        <ThemedText type="title">Your Suggestions</ThemedText>
+        <ThemedText style={{ alignSelf: 'center' }} type="title">
+          Your Suggestions
+        </ThemedText>
         <View style={styles.listContainer}>
           {filteredSuggestions.map((item) => (
             <ListItemSwipeable
@@ -89,11 +91,11 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
+    height: '100%',
+    width: '100%',
     position: 'absolute',
+    transform: [{ scale: 3 }],
+    top: 80,
   },
   listContainer: {
     padding: 10,
