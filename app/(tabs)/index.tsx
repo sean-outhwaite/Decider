@@ -52,10 +52,19 @@ export default function HomeScreen() {
         <ThemedTextInput
           type="default"
           placeholder="Enter your suggestion"
+          placeholderTextColor="#888"
           value={submission}
           onChangeText={setSubmission}
         />
-        <Button color="#d99eee" title="Submit" onPress={handleSubmit} />
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginTop: 8,
+          }}
+        >
+          <Button color="#d99eee" title="Submit" onPress={handleSubmit} />
+        </View>
       </ThemedView>
       <ThemedView>
         <ThemedText style={{ alignSelf: 'center' }} type="title">
