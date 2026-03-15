@@ -67,7 +67,7 @@ export default function HomeScreen() {
         </View>
       </ThemedView>
       <ThemedView>
-        <ThemedText style={{ alignSelf: 'center' }} type="title">
+        <ThemedText style={{ alignSelf: 'center', height: 40 }} type="title">
           Your Suggestions
         </ThemedText>
         <View style={styles.listContainer}>
