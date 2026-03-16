@@ -55,9 +55,10 @@ export default function HomeScreen() {
                   style={styles.approveButton}
                 >
                   <ThemedText style={styles.buttonText} type="defaultSemiBold">
-                    Approve
+                    ✓
                   </ThemedText>
                 </Pressable>
+                {/* <View style={{ width: 2, backgroundColor: '#333' }} /> */}
                 <Pressable
                   onPress={() => handleReject(suggestions.indexOf(item))}
                   style={styles.rejectButton}
@@ -112,29 +113,32 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     width: '100%',
     alignItems: 'stretch',
+    overflow: 'hidden',
   },
   buttonText: {
     color: '#ffffffff',
     fontSize: 16,
   },
   approveButton: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#71c375ff',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
     borderBottomLeftRadius: 8,
     borderBottomRightRadius: 0,
+    borderRightWidth: 0.75,
+    borderColor: '#444',
   },
   rejectButton: {
-    backgroundColor: '#ff5a4eff',
+    backgroundColor: '#e06464ff',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 12,
     borderBottomRightRadius: 8,
     borderBottomLeftRadius: 0,
-    elevation: 0,
-    shadowColor: 'transparent',
+    borderLeftWidth: 0.75,
+    borderColor: '#444',
   },
 })
