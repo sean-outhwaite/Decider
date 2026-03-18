@@ -1,7 +1,6 @@
-import { Image } from 'expo-image'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
-import ListView from '@/components/list-view'
+import NewListView from '@/components/new-list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { useConfirmed } from '../providers/confirmed'
@@ -32,15 +31,7 @@ export default function HomeScreen() {
   }
 
   return (
-    <ListView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }
-    >
+    <NewListView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Review Suggestions</ThemedText>
       </ThemedView>
@@ -71,7 +62,7 @@ export default function HomeScreen() {
           ))}
         </View>
       </ThemedView>
-    </ListView>
+    </NewListView>
   )
 }
 
@@ -84,13 +75,6 @@ const styles = StyleSheet.create({
   stepContainer: {
     gap: 8,
     marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
   },
   listContainer: {
     padding: 10,
