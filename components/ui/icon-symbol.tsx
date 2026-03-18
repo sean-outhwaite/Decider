@@ -22,6 +22,7 @@ const MAPPING = {
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
   'list.bullet.clipboard.fill': 'assignment',
+  'trash.fill': 'delete',
 } as IconMapping
 
 /**

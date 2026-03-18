@@ -1,4 +1,4 @@
-import { StyleSheet, Text } from 'react-native'
+import { StyleSheet } from 'react-native'
 import Swipeable, {
   SwipeableProps,
 } from 'react-native-gesture-handler/ReanimatedSwipeable'
@@ -7,6 +7,7 @@ import Reanimated, {
   SharedValue,
   useAnimatedStyle,
 } from 'react-native-reanimated'
+import { IconSymbol } from './ui/icon-symbol'
 
 type ListItemSwipeableProps = {
   onSwipeableOpen: SwipeableProps['onSwipeableOpen']
@@ -27,7 +28,7 @@ export default function ListItemSwipeable({
 
     return (
       <Reanimated.View style={[styles.rightAction, styleAnimation]}>
-        <Text style={styles.rightActionText}>Delete</Text>
+        <IconSymbol name="trash.fill" size={26} color="#fff" />
       </Reanimated.View>
     )
   }
