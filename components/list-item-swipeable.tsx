@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     padding: 15,
     marginVertical: 5,
-    backgroundColor: 'red',
+    backgroundColor: '#e06464ff',
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
   },
