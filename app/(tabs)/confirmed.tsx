@@ -17,7 +17,9 @@ export default function TabTwoScreen() {
   return (
     <NewListView>
       <ThemedView>
-        <ThemedText type="title">Ready to Watch</ThemedText>
+        <ThemedText type="title">
+          Ready to Watch<Text style={{ color: '#d99eee' }}>.</Text>
+        </ThemedText>
         <View style={styles.listContainer}>
           {confirmed.map((item) => (
             <ListItemSwipeable

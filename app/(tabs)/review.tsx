@@ -33,7 +33,9 @@ export default function HomeScreen() {
   return (
     <NewListView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Review Suggestions</ThemedText>
+        <ThemedText type="title">
+          Review Suggestions<Text style={{ color: '#d99eee' }}>.</Text>
+        </ThemedText>
       </ThemedView>
       <ThemedView>
         <View style={styles.listContainer}>

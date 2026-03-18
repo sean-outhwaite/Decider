@@ -3,7 +3,6 @@ import React from 'react'
 
 import { HapticTab } from '@/components/haptic-tab'
 import { IconSymbol } from '@/components/ui/icon-symbol'
-import { Colors } from '@/constants/theme'
 import { useColorScheme } from '@/hooks/use-color-scheme'
 import { ConfirmedProvider } from '../providers/confirmed'
 import { SuggestionsProvider } from '../providers/suggestions'
@@ -16,7 +15,7 @@ export default function TabLayout() {
       <ConfirmedProvider>
         <Tabs
           screenOptions={{
-            tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+            tabBarActiveTintColor: '#d99eee',
             headerShown: false,
             tabBarButton: HapticTab,
           }}

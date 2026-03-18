@@ -42,7 +42,9 @@ export default function HomeScreen() {
       }
     >
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Decider</ThemedText>
+        <ThemedText type="title">
+          Decider<Text style={{ color: '#d99eee' }}>.</Text>
+        </ThemedText>
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
