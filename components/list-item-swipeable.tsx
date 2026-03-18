@@ -42,30 +42,6 @@ export default function ListItemSwipeable({
   )
 }
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-  listContainer: {
-    width: '100%',
-    padding: 10,
-  },
-  listItems: {
-    padding: 15,
-    marginVertical: 5,
-    backgroundColor: '#f0efefff',
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    borderRadius: 8,
-  },
   rightAction: {
     flex: 1,
     justifyContent: 'center',

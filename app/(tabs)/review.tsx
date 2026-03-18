@@ -58,7 +58,6 @@ export default function HomeScreen() {
                     ✓
                   </ThemedText>
                 </Pressable>
-                {/* <View style={{ width: 2, backgroundColor: '#333' }} /> */}
                 <Pressable
                   onPress={() => handleReject(suggestions.indexOf(item))}
                   style={styles.rejectButton}
@@ -106,7 +105,7 @@ const styles = StyleSheet.create({
     shadowColor: 'transparent',
   },
   listText: {
-    color: '#ffffffff',
+    color: '#fff',
     padding: 15,
   },
   buttonRow: {
