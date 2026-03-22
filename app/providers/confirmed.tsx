@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react'
 
-type Confirmed = { id: string; title: string }
+type Confirmed = { id: string; title: string; archived?: boolean }
 
 type ConfirmedContextType = {
   confirmed: Confirmed[]
@@ -27,10 +27,12 @@ export function ConfirmedProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const unsubscribe = confirmedRef.onSnapshot((snapshot) => {
       if (snapshot) {
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
+        const data = snapshot.docs
+          .map((doc) => ({
+            id: doc.id,
+            ...(doc.data() as Omit<Confirmed, 'id'>),
+          }))
+          .filter((item) => !item.archived)
         setConfirmed(data as Confirmed[])
       } else {
         console.error('Snapshot is null')
@@ -44,8 +46,8 @@ export function ConfirmedProvider({ children }: { children: ReactNode }) {
     await confirmedRef.add({ title })
   }
 
-  const removeConfirmed = (id: string) => {
-    confirmedRef.doc(id).delete()
+  const removeConfirmed = async (id: string) => {
+    await confirmedRef.doc(id).set({ archived: true }, { merge: true })
   }
 
   return (

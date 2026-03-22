@@ -3,13 +3,10 @@ import React from 'react'
 
 import { HapticTab } from '@/components/haptic-tab'
 import { IconSymbol } from '@/components/ui/icon-symbol'
-import { useColorScheme } from '@/hooks/use-color-scheme'
 import { ConfirmedProvider } from '../providers/confirmed'
 import { SuggestionsProvider } from '../providers/suggestions'
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme()
-
   return (
     <SuggestionsProvider>
       <ConfirmedProvider>
