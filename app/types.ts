@@ -1,5 +1,5 @@
 export type RootStackParamList = {
   Root: undefined
   NotFound: undefined
-  modal: { data: string }
+  modal: { data?: string; title?: string }
 }

@@ -2,6 +2,7 @@ import { useColorScheme } from '@/hooks/use-color-scheme'
 import {
   DarkTheme,
   DefaultTheme,
+  RouteProp,
   ThemeProvider,
 } from '@react-navigation/native'
 import { Stack } from 'expo-router'
@@ -11,6 +12,7 @@ import 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AuthProvider } from './providers/auth'
 import { PlatformProvider } from './providers/platform'
+import { RootStackParamList } from './types'
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -32,7 +34,14 @@ export default function RootLayout() {
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen
                   name="modal"
-                  options={{ presentation: 'modal', title: 'Modal' }}
+                  options={({
+                    route,
+                  }: {
+                    route: RouteProp<RootStackParamList, 'modal'>
+                  }) => ({
+                    presentation: 'modal',
+                    title: route.params?.title ? route.params.title : 'Modal',
+                  })}
                 />
               </Stack>
               <StatusBar style="auto" />

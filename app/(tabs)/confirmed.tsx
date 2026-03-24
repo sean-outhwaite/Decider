@@ -51,6 +51,7 @@ export default function TabTwoScreen() {
         style={styles.fab}
         onPress={() =>
           navigation.navigate('modal', {
+            title: 'Deleted Confirmed',
             data: 'Hello from the confirmed tab!',
           })
         }
