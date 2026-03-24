@@ -49,7 +49,11 @@ export default function TabTwoScreen() {
       </NewListView>
       <Pressable
         style={styles.fab}
-        onPress={() => navigation.navigate('modal')}
+        onPress={() =>
+          navigation.navigate('modal', {
+            data: 'Hello from the confirmed tab!',
+          })
+        }
       >
         <Text style={styles.fabText}>
           <IconSymbol color="#fff" name="document.on.trash" size={24} />
