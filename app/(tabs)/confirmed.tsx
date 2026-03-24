@@ -6,12 +6,12 @@ import { StyleSheet, Text, View } from 'react-native'
 import { useConfirmed } from '../providers/confirmed'
 
 export default function TabTwoScreen() {
-  const { confirmed, removeConfirmed } = useConfirmed()
+  const { confirmed, archiveConfirmed } = useConfirmed()
 
   const handleDelete = (index: number) => {
     const updatedConfirmed = [...confirmed]
     const itemToDelete = updatedConfirmed.splice(index, 1)[0]
-    removeConfirmed(itemToDelete.id)
+    archiveConfirmed(itemToDelete.id)
   }
 
   return (

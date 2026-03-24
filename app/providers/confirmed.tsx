@@ -13,6 +13,8 @@ type ConfirmedContextType = {
   confirmed: Confirmed[]
   addConfirmed: (title: string) => void
   removeConfirmed: (id: string) => void
+  restoreConfirmed: (id: string) => void
+  archiveConfirmed: (id: string) => void
 }
 
 const ConfirmedContext = createContext<ConfirmedContextType | undefined>(
@@ -47,12 +49,26 @@ export function ConfirmedProvider({ children }: { children: ReactNode }) {
   }
 
   const removeConfirmed = async (id: string) => {
+    await confirmedRef.doc(id).delete()
+  }
+
+  const archiveConfirmed = async (id: string) => {
     await confirmedRef.doc(id).set({ archived: true }, { merge: true })
+  }
+
+  const restoreConfirmed = async (id: string) => {
+    await confirmedRef.doc(id).set({ archived: false }, { merge: true })
   }
 
   return (
     <ConfirmedContext.Provider
-      value={{ confirmed, addConfirmed, removeConfirmed }}
+      value={{
+        confirmed,
+        addConfirmed,
+        removeConfirmed,
+        archiveConfirmed,
+        restoreConfirmed,
+      }}
     >
       {children}
     </ConfirmedContext.Provider>

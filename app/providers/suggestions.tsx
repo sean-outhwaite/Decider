@@ -19,6 +19,7 @@ type SuggestionsContextType = {
   addSuggestion: (title: string, submittedBy: string) => void
   removeSuggestion: (id: string) => void
   archiveSuggestion: (id: string) => void
+  restoreSuggestion: (id: string) => void
 }
 
 const SuggestionsContext = createContext<SuggestionsContextType | undefined>(
@@ -60,6 +61,10 @@ export function SuggestionsProvider({ children }: { children: ReactNode }) {
     await suggestionsRef.doc(id).set({ archived: true }, { merge: true })
   }
 
+  const restoreSuggestion = async (id: string) => {
+    await suggestionsRef.doc(id).set({ archived: false }, { merge: true })
+  }
+
   return (
     <SuggestionsContext.Provider
       value={{
@@ -67,6 +72,7 @@ export function SuggestionsProvider({ children }: { children: ReactNode }) {
         addSuggestion,
         removeSuggestion,
         archiveSuggestion,
+        restoreSuggestion,
       }}
     >
       {children}
