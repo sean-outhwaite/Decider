@@ -2,7 +2,6 @@ import { useColorScheme } from '@/hooks/use-color-scheme'
 import {
   DarkTheme,
   DefaultTheme,
-  RouteProp,
   ThemeProvider,
 } from '@react-navigation/native'
 import { Stack } from 'expo-router'
@@ -12,7 +11,6 @@ import 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AuthProvider } from './providers/auth'
 import { PlatformProvider } from './providers/platform'
-import { RootStackParamList } from './types'
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -20,6 +18,8 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme()
+
+  //To do - fix typing for route params in modal screen
 
   return (
     <GestureHandlerRootView>
@@ -34,11 +34,7 @@ export default function RootLayout() {
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen
                   name="modal"
-                  options={({
-                    route,
-                  }: {
-                    route: RouteProp<RootStackParamList, 'modal'>
-                  }) => ({
+                  options={({ route }: { route: any }) => ({
                     presentation: 'modal',
                     title: route.params?.title ? route.params.title : 'Modal',
                   })}

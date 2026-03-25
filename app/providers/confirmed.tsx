@@ -29,12 +29,10 @@ export function ConfirmedProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const unsubscribe = confirmedRef.onSnapshot((snapshot) => {
       if (snapshot) {
-        const data = snapshot.docs
-          .map((doc) => ({
-            id: doc.id,
-            ...(doc.data() as Omit<Confirmed, 'id'>),
-          }))
-          .filter((item) => !item.archived)
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<Confirmed, 'id'>),
+        }))
         setConfirmed(data as Confirmed[])
       } else {
         console.error('Snapshot is null')

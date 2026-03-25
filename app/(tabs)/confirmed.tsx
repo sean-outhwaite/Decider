@@ -12,8 +12,10 @@ import { RootStackParamList } from '../types'
 export default function TabTwoScreen() {
   const { confirmed, archiveConfirmed } = useConfirmed()
 
+  const activeConfirmed = confirmed.filter((item) => !item.archived)
+
   const handleDelete = (index: number) => {
-    const updatedConfirmed = [...confirmed]
+    const updatedConfirmed = [...activeConfirmed]
     const itemToDelete = updatedConfirmed.splice(index, 1)[0]
     archiveConfirmed(itemToDelete.id)
   }
@@ -28,11 +30,11 @@ export default function TabTwoScreen() {
             Ready to Watch<Text style={{ color: '#d99eee' }}>.</Text>
           </ThemedText>
           <View style={styles.listContainer}>
-            {confirmed.map((item) => (
+            {activeConfirmed.map((item) => (
               <ListItemSwipeable
                 key={item.id}
                 onSwipeableOpen={() => {
-                  handleDelete(confirmed.indexOf(item))
+                  handleDelete(activeConfirmed.indexOf(item))
                 }}
               >
                 <ThemedView
@@ -51,8 +53,8 @@ export default function TabTwoScreen() {
         style={styles.fab}
         onPress={() =>
           navigation.navigate('modal', {
-            title: 'Deleted Confirmed',
-            data: 'Hello from the confirmed tab!',
+            title: 'Deleted Items',
+            data: 'Testing',
           })
         }
       >
