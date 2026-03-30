@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-end',
     padding: 15,
     marginVertical: 5,
-    backgroundColor: 'rgb(108, 224, 100)',
+    backgroundColor: '#71c375ff',
     borderTopRightRadius: 8,
     borderBottomRightRadius: 8,
   },
