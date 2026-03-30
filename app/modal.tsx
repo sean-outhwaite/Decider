@@ -1,9 +1,11 @@
-import { Link, useLocalSearchParams } from 'expo-router'
-import { StyleSheet } from 'react-native'
+import { useLocalSearchParams } from 'expo-router'
+import { StyleSheet, View } from 'react-native'
 
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 
+import ListItemSwipeable from '@/components/list-item-swipeable'
+import NewListView from '@/components/new-list-view'
 import { Confirmed } from './types'
 
 export default function ModalScreen() {
@@ -11,31 +13,43 @@ export default function ModalScreen() {
 
   const archived = Array.isArray(data) ? ['Invalid Data'] : JSON.parse(data)
 
+  const placeholder = () => {
+    console.log('swiped')
+  }
+
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText type="title">This is a modal</ThemedText>
-      <Link href="/" dismissTo style={styles.link}>
+    <NewListView>
+      <View style={styles.listContainer}>
         {archived.length > 0 ? (
           archived.map((item: Confirmed) => (
-            <ThemedText key={item.id}>{item.title}</ThemedText>
+            <ListItemSwipeable key={item.id} onSwipeableOpen={placeholder}>
+              <ThemedView
+                style={{
+                  display: 'flex',
+                }}
+              >
+                <ThemedText style={styles.listItems}>{item.title}</ThemedText>
+              </ThemedView>
+            </ListItemSwipeable>
           ))
         ) : (
           <ThemedText>No archived items</ThemedText>
         )}
-      </Link>
-    </ThemedView>
+      </View>
+    </NewListView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
+  listItems: {
+    padding: 15,
+    marginVertical: 5,
+    backgroundColor: '#3b3b3bff',
+    color: '#fff',
+    borderRadius: 8,
   },
-  link: {
-    marginTop: 15,
-    paddingVertical: 15,
+  listContainer: {
+    width: '100%',
+    padding: 10,
   },
 })
