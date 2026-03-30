@@ -54,7 +54,10 @@ export default function TabTwoScreen() {
         onPress={() =>
           navigation.navigate('modal', {
             title: 'Deleted Items',
-            data: 'Testing',
+            data: confirmed
+              .filter((item) => item.archived)
+              .map((item) => item.title)
+              .join(', '),
           })
         }
       >
