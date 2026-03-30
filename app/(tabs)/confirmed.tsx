@@ -13,6 +13,7 @@ export default function TabTwoScreen() {
   const { confirmed, archiveConfirmed } = useConfirmed()
 
   const activeConfirmed = confirmed.filter((item) => !item.archived)
+  const archivedConfirmed = confirmed.filter((item) => item.archived)
 
   const handleDelete = (index: number) => {
     const updatedConfirmed = [...activeConfirmed]
@@ -54,10 +55,7 @@ export default function TabTwoScreen() {
         onPress={() =>
           navigation.navigate('modal', {
             title: 'Deleted Items',
-            data: confirmed
-              .filter((item) => item.archived)
-              .map((item) => item.title)
-              .join(', '),
+            data: JSON.stringify(archivedConfirmed),
           })
         }
       >

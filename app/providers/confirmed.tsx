@@ -7,7 +7,7 @@ import React, {
   useState,
 } from 'react'
 
-type Confirmed = { id: string; title: string; archived?: boolean }
+import { Confirmed } from '../types'
 
 type ConfirmedContextType = {
   confirmed: Confirmed[]
