@@ -89,6 +89,7 @@ export default function HomeScreen() {
           navigation.navigate('modal', {
             title: 'Deleted Suggestions',
             data: JSON.stringify(archivedSuggestions),
+            screen: 'suggestions',
           })
         }
       >

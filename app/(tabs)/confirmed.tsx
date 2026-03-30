@@ -56,6 +56,7 @@ export default function TabTwoScreen() {
           navigation.navigate('modal', {
             title: 'Deleted Items',
             data: JSON.stringify(archivedConfirmed),
+            screen: 'confirmed',
           })
         }
       >
