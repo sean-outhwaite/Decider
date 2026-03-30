@@ -23,6 +23,7 @@ const MAPPING = {
   'chevron.right': 'chevron-right',
   'list.bullet.clipboard.fill': 'assignment',
   'trash.fill': 'delete',
+  'document.on.trash': 'delete-sweep',
 } as IconMapping
 
 /**
