@@ -33,7 +33,7 @@ export default function ModalScreen() {
             </ListItemSwipeable>
           ))
         ) : (
-          <ThemedText>No archived items</ThemedText>
+          <ThemedText>No deleted items</ThemedText>
         )}
       </View>
     </NewListView>

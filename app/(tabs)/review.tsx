@@ -3,16 +3,24 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import NewListView from '@/components/new-list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
+import { IconSymbol } from '@/components/ui/icon-symbol'
+import { useNavigation } from '@react-navigation/native'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useConfirmed } from '../providers/confirmed'
 import { usePlatform } from '../providers/platform'
 import { useSuggestions } from '../providers/suggestions'
+import { RootStackParamList } from '../types'
 
 export default function HomeScreen() {
   const { suggestions, archiveSuggestion, removeSuggestion } = useSuggestions()
   const { platform } = usePlatform()
   const user = platform === 'ios' ? 'Swan' : 'Sab'
   const filteredSuggestions = suggestions.filter(
-    (suggestion) => suggestion.submittedBy !== user,
+    (suggestion) => suggestion.submittedBy !== user && !suggestion.archived,
+  )
+
+  const archivedSuggestions = suggestions.filter(
+    (suggestion) => suggestion.submittedBy !== user && suggestion.archived,
   )
 
   const { addConfirmed } = useConfirmed()
@@ -30,41 +38,65 @@ export default function HomeScreen() {
     addConfirmed(approvedItem.title)
   }
 
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
+
   return (
-    <NewListView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="title">
-          Review Suggestions<Text style={{ color: '#d99eee' }}>.</Text>
-        </ThemedText>
-      </ThemedView>
-      <ThemedView>
-        <View style={styles.listContainer}>
-          {filteredSuggestions.map((item) => (
-            <ThemedView key={item.id} style={styles.listItems}>
-              <Text style={styles.listText}>{item.title}</Text>
-              <View style={styles.buttonRow}>
-                <Pressable
-                  onPress={() => handleApprove(suggestions.indexOf(item))}
-                  style={styles.approveButton}
-                >
-                  <ThemedText style={styles.buttonText} type="defaultSemiBold">
-                    ✓
-                  </ThemedText>
-                </Pressable>
-                <Pressable
-                  onPress={() => handleReject(suggestions.indexOf(item))}
-                  style={styles.rejectButton}
-                >
-                  <ThemedText style={styles.buttonText} type="defaultSemiBold">
-                    X
-                  </ThemedText>
-                </Pressable>
-              </View>
-            </ThemedView>
-          ))}
-        </View>
-      </ThemedView>
-    </NewListView>
+    <>
+      <NewListView>
+        <ThemedView style={styles.stepContainer}>
+          <ThemedText type="title">
+            Review Suggestions<Text style={{ color: '#d99eee' }}>.</Text>
+          </ThemedText>
+        </ThemedView>
+        <ThemedView>
+          <View style={styles.listContainer}>
+            {filteredSuggestions.map((item) => (
+              <ThemedView key={item.id} style={styles.listItems}>
+                <Text style={styles.listText}>{item.title}</Text>
+                <View style={styles.buttonRow}>
+                  <Pressable
+                    onPress={() => handleApprove(suggestions.indexOf(item))}
+                    style={styles.approveButton}
+                  >
+                    <ThemedText
+                      style={styles.buttonText}
+                      type="defaultSemiBold"
+                    >
+                      ✓
+                    </ThemedText>
+                  </Pressable>
+                  <Pressable
+                    onPress={() => handleReject(suggestions.indexOf(item))}
+                    style={styles.rejectButton}
+                  >
+                    <ThemedText
+                      style={styles.buttonText}
+                      type="defaultSemiBold"
+                    >
+                      X
+                    </ThemedText>
+                  </Pressable>
+                </View>
+              </ThemedView>
+            ))}
+          </View>
+        </ThemedView>
+      </NewListView>
+      <Pressable
+        style={styles.fab}
+        onPress={() =>
+          navigation.navigate('modal', {
+            title: 'Deleted Suggestions',
+            data: JSON.stringify(archivedSuggestions),
+          })
+        }
+      >
+        <Text style={styles.fabText}>
+          <IconSymbol color="#fff" name="document.on.trash" size={24} />
+        </Text>
+      </Pressable>
+    </>
   )
 }
 
@@ -125,5 +157,22 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 0,
     borderLeftWidth: 0.75,
     borderColor: '#444',
+  },
+  fab: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    backgroundColor: '#d99eee',
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 5,
+  },
+  fabText: {
+    color: '#fff',
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 })

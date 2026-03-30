@@ -34,12 +34,10 @@ export function SuggestionsProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const unsubscribe = suggestionsRef.onSnapshot((snapshot) => {
       if (snapshot) {
-        const data = snapshot.docs
-          .map((doc) => ({
-            id: doc.id,
-            ...(doc.data() as Omit<Suggestion, 'id'>),
-          }))
-          .filter((item) => !item.archived)
+        const data = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...(doc.data() as Omit<Suggestion, 'id'>),
+        }))
         setSuggestions(data as Suggestion[])
       } else {
         console.error('Snapshot is null')
