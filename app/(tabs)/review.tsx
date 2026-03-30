@@ -19,10 +19,6 @@ export default function HomeScreen() {
     (suggestion) => suggestion.submittedBy !== user && !suggestion.archived,
   )
 
-  const archivedSuggestions = suggestions.filter(
-    (suggestion) => suggestion.submittedBy !== user && suggestion.archived,
-  )
-
   const { addConfirmed } = useConfirmed()
 
   const handleReject = (index: number) => {
@@ -88,7 +84,6 @@ export default function HomeScreen() {
         onPress={() =>
           navigation.navigate('modal', {
             title: 'Deleted Suggestions',
-            data: JSON.stringify(archivedSuggestions),
             screen: 'suggestions',
           })
         }

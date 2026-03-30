@@ -9,15 +9,21 @@ import NewListView from '@/components/new-list-view'
 import { Confirmed } from './types'
 
 import { useConfirmed } from './providers/confirmed'
+import { usePlatform } from './providers/platform'
 import { useSuggestions } from './providers/suggestions'
 
 export default function ModalScreen() {
-  const { data, screen } = useLocalSearchParams()
+  const { screen } = useLocalSearchParams()
 
-  const archived = Array.isArray(data) ? ['Invalid Data'] : JSON.parse(data)
+  const { restoreConfirmed, confirmed } = useConfirmed()
+  const { restoreSuggestion, suggestions } = useSuggestions()
 
-  const { restoreConfirmed } = useConfirmed()
-  const { restoreSuggestion } = useSuggestions()
+  const user = usePlatform().platform === 'ios' ? 'Swan' : 'Sab'
+
+  const archived =
+    screen === 'confirmed'
+      ? confirmed.filter((item) => item.archived)
+      : suggestions.filter((item) => item.archived && item.submittedBy !== user)
 
   const swipeHandlers: Record<string, (id: string) => void> = {
     confirmed: restoreConfirmed,
