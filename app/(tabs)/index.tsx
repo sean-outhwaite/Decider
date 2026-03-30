@@ -22,7 +22,7 @@ export default function HomeScreen() {
   }
 
   const filteredSuggestions = suggestions.filter(
-    (suggestion) => suggestion.submittedBy === user,
+    (suggestion) => suggestion.submittedBy === user && !suggestion.archived,
   )
 
   const handleSubmit = () => {
