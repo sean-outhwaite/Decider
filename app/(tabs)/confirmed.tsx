@@ -32,6 +32,7 @@ export default function TabTwoScreen() {
           <View style={styles.listContainer}>
             {activeConfirmed.map((item) => (
               <ListItemSwipeable
+                actionType="delete"
                 key={item.id}
                 onSwipeableOpen={() => {
                   handleDelete(activeConfirmed.indexOf(item))

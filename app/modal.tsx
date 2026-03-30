@@ -20,6 +20,7 @@ export default function ModalScreen() {
 
   const user = usePlatform().platform === 'ios' ? 'Swan' : 'Sab'
 
+  // TODO: Move this filtering to the providers
   const archived =
     screen === 'confirmed'
       ? confirmed.filter((item) => item.archived)
@@ -38,6 +39,7 @@ export default function ModalScreen() {
         {archived.length > 0 ? (
           archived.map((item: Confirmed) => (
             <ListItemSwipeable
+              actionType="restore"
               key={item.id}
               onSwipeableOpen={() => handleSwipe(item.id)}
             >

@@ -24,6 +24,7 @@ const MAPPING = {
   'list.bullet.clipboard.fill': 'assignment',
   'trash.fill': 'delete',
   'document.on.trash': 'delete-sweep',
+  'arrow.clockwise': 'restore',
 } as IconMapping
 
 /**

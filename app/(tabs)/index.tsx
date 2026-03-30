@@ -75,6 +75,7 @@ export default function HomeScreen() {
         <View style={styles.listContainer}>
           {filteredSuggestions.map((item) => (
             <ListItemSwipeable
+              actionType="delete"
               key={item.id}
               onSwipeableOpen={() => {
                 handleDelete(filteredSuggestions.indexOf(item))
