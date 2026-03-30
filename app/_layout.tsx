@@ -10,7 +10,9 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AuthProvider } from './providers/auth'
+import { ConfirmedProvider } from './providers/confirmed'
 import { PlatformProvider } from './providers/platform'
+import { SuggestionsProvider } from './providers/suggestions'
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -25,24 +27,36 @@ export default function RootLayout() {
     <GestureHandlerRootView>
       <SafeAreaProvider>
         <AuthProvider>
-          <PlatformProvider>
-            <ThemeProvider
-              value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-            >
-              <Stack>
-                <Stack.Screen name="index" options={{ headerShown: false }} />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen
-                  name="modal"
-                  options={({ route }: { route: any }) => ({
-                    presentation: 'modal',
-                    title: route.params?.title ? route.params.title : 'Modal',
-                  })}
-                />
-              </Stack>
-              <StatusBar style="auto" />
-            </ThemeProvider>
-          </PlatformProvider>
+          <ConfirmedProvider>
+            <SuggestionsProvider>
+              <PlatformProvider>
+                <ThemeProvider
+                  value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
+                >
+                  <Stack>
+                    <Stack.Screen
+                      name="index"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="(tabs)"
+                      options={{ headerShown: false }}
+                    />
+                    <Stack.Screen
+                      name="modal"
+                      options={({ route }: { route: any }) => ({
+                        presentation: 'modal',
+                        title: route.params?.title
+                          ? route.params.title
+                          : 'Modal',
+                      })}
+                    />
+                  </Stack>
+                  <StatusBar style="auto" />
+                </ThemeProvider>
+              </PlatformProvider>
+            </SuggestionsProvider>
+          </ConfirmedProvider>
         </AuthProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
