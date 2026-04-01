@@ -73,19 +73,25 @@ export default function HomeScreen() {
           Your Suggestions
         </ThemedText>
         <View style={styles.listContainer}>
-          {filteredSuggestions.map((item) => (
-            <ListItemSwipeable
-              actionType="delete"
-              key={item.id}
-              onSwipeableOpen={() => {
-                handleDelete(filteredSuggestions.indexOf(item))
-              }}
-            >
-              <ThemedView>
-                <Text style={styles.listItems}>{item.title}</Text>
-              </ThemedView>
-            </ListItemSwipeable>
-          ))}
+          {filteredSuggestions.length > 0 ? (
+            filteredSuggestions.map((item) => (
+              <ListItemSwipeable
+                actionType="delete"
+                key={item.id}
+                onSwipeableOpen={() => {
+                  handleDelete(filteredSuggestions.indexOf(item))
+                }}
+              >
+                <ThemedView>
+                  <Text style={styles.listItems}>{item.title}</Text>
+                </ThemedView>
+              </ListItemSwipeable>
+            ))
+          ) : (
+            <ThemedText style={{ fontStyle: 'italic' }}>
+              No pending suggestions.
+            </ThemedText>
+          )}
         </View>
       </ThemedView>
     </ListView>

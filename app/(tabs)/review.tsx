@@ -47,35 +47,41 @@ export default function HomeScreen() {
         </ThemedView>
         <ThemedView>
           <View style={styles.listContainer}>
-            {filteredSuggestions.map((item) => (
-              <ThemedView key={item.id} style={styles.listItems}>
-                <Text style={styles.listText}>{item.title}</Text>
-                <View style={styles.buttonRow}>
-                  <Pressable
-                    onPress={() => handleApprove(suggestions.indexOf(item))}
-                    style={styles.approveButton}
-                  >
-                    <ThemedText
-                      style={styles.buttonText}
-                      type="defaultSemiBold"
+            {filteredSuggestions.length > 0 ? (
+              filteredSuggestions.map((item) => (
+                <ThemedView key={item.id} style={styles.listItems}>
+                  <Text style={styles.listText}>{item.title}</Text>
+                  <View style={styles.buttonRow}>
+                    <Pressable
+                      onPress={() => handleApprove(suggestions.indexOf(item))}
+                      style={styles.approveButton}
                     >
-                      ✓
-                    </ThemedText>
-                  </Pressable>
-                  <Pressable
-                    onPress={() => handleReject(suggestions.indexOf(item))}
-                    style={styles.rejectButton}
-                  >
-                    <ThemedText
-                      style={styles.buttonText}
-                      type="defaultSemiBold"
+                      <ThemedText
+                        style={styles.buttonText}
+                        type="defaultSemiBold"
+                      >
+                        ✓
+                      </ThemedText>
+                    </Pressable>
+                    <Pressable
+                      onPress={() => handleReject(suggestions.indexOf(item))}
+                      style={styles.rejectButton}
                     >
-                      X
-                    </ThemedText>
-                  </Pressable>
-                </View>
-              </ThemedView>
-            ))}
+                      <ThemedText
+                        style={styles.buttonText}
+                        type="defaultSemiBold"
+                      >
+                        X
+                      </ThemedText>
+                    </Pressable>
+                  </View>
+                </ThemedView>
+              ))
+            ) : (
+              <ThemedText style={{ fontStyle: 'italic' }}>
+                No suggestions to review.
+              </ThemedText>
+            )}
           </View>
         </ThemedView>
       </NewListView>

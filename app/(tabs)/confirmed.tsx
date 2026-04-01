@@ -30,23 +30,29 @@ export default function TabTwoScreen() {
             Ready to Watch<Text style={{ color: '#d99eee' }}>.</Text>
           </ThemedText>
           <View style={styles.listContainer}>
-            {activeConfirmed.map((item) => (
-              <ListItemSwipeable
-                actionType="delete"
-                key={item.id}
-                onSwipeableOpen={() => {
-                  handleDelete(activeConfirmed.indexOf(item))
-                }}
-              >
-                <ThemedView
-                  style={{
-                    display: 'flex',
+            {activeConfirmed.length > 0 ? (
+              activeConfirmed.map((item) => (
+                <ListItemSwipeable
+                  actionType="delete"
+                  key={item.id}
+                  onSwipeableOpen={() => {
+                    handleDelete(activeConfirmed.indexOf(item))
                   }}
                 >
-                  <Text style={styles.listItems}>{item.title}</Text>
-                </ThemedView>
-              </ListItemSwipeable>
-            ))}
+                  <ThemedView
+                    style={{
+                      display: 'flex',
+                    }}
+                  >
+                    <Text style={styles.listItems}>{item.title}</Text>
+                  </ThemedView>
+                </ListItemSwipeable>
+              ))
+            ) : (
+              <ThemedText style={{ fontStyle: 'italic' }}>
+                Nothing to watch.
+              </ThemedText>
+            )}
           </View>
         </ThemedView>
       </NewListView>

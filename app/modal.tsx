@@ -53,7 +53,9 @@ export default function ModalScreen() {
             </ListItemSwipeable>
           ))
         ) : (
-          <ThemedText>No deleted items</ThemedText>
+          <ThemedText style={{ fontStyle: 'italic' }}>
+            No deleted items
+          </ThemedText>
         )}
       </View>
     </NewListView>
