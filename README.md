@@ -6,10 +6,10 @@ Decider is a React Native app built with Expo that helps two people collaborativ
 
 - **Submit Recommendations**: Enter movie or TV show titles as Person A or Person B.
 - **Confirm Suggestions**: Review pending recommendations and confirm them (only if you're not the submitter).
-- **Role Switching**: Toggle between Person A and Person B to simulate two users.
+- **User Handling**: Currently will determine user based on operating system (I use iOS, my partner uses Android) but could be easily configured to handle unique logins.
 - **Tabbed Interface**: Navigate between Submitted (pending), Confirmed (approved), and other tabs.
 - **Shared State**: Recommendations are shared across tabs using React Context.
-- **Responsive Design**: Works on iOS, Android, and web with light/dark mode support.
+- **Responsive Design**: Works on iOS & Android with light/dark mode support.
 
 ## Project Structure
 
