@@ -23,7 +23,11 @@ const ConfirmedContext = createContext<ConfirmedContextType | undefined>(
 
 const confirmedRef = firestore().collection('confirmed')
 
-export function ConfirmedProvider({ children }: { children: ReactNode }) {
+export default function ConfirmedProvider({
+  children,
+}: {
+  children: ReactNode
+}) {
   const [confirmed, setConfirmed] = useState<Confirmed[]>([])
 
   useEffect(() => {

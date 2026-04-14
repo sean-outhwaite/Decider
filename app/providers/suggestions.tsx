@@ -28,7 +28,11 @@ const SuggestionsContext = createContext<SuggestionsContextType | undefined>(
 
 const suggestionsRef = firestore().collection('suggestions')
 
-export function SuggestionsProvider({ children }: { children: ReactNode }) {
+export default function SuggestionsProvider({
+  children,
+}: {
+  children: ReactNode
+}) {
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
 
   useEffect(() => {

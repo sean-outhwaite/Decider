@@ -9,7 +9,11 @@ const PlatformContext = createContext<PlatformContextType | undefined>(
   undefined,
 )
 
-export function PlatformProvider({ children }: { children: ReactNode }) {
+export default function PlatformProvider({
+  children,
+}: {
+  children: ReactNode
+}) {
   const value = {
     platform: Platform.OS,
   }

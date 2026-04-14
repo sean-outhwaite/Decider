@@ -10,9 +10,9 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import 'react-native-reanimated'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 import { AuthProvider } from './providers/auth'
-import { ConfirmedProvider } from './providers/confirmed'
-import { PlatformProvider } from './providers/platform'
-import { SuggestionsProvider } from './providers/suggestions'
+import ConfirmedProvider from './providers/confirmed'
+import PlatformProvider from './providers/platform'
+import SuggestionsProvider from './providers/suggestions'
 
 export const unstable_settings = {
   anchor: '(tabs)',
