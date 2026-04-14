@@ -1,4 +1,4 @@
-import firestore from '@react-native-firebase/firestore'
+import { getFirestore, onSnapshot } from '@react-native-firebase/firestore'
 import React, {
   createContext,
   ReactNode,
@@ -21,7 +21,7 @@ const ConfirmedContext = createContext<ConfirmedContextType | undefined>(
   undefined,
 )
 
-const confirmedRef = firestore().collection('confirmed')
+const confirmedRef = getFirestore().collection('confirmed')
 
 export default function ConfirmedProvider({
   children,
@@ -31,7 +31,7 @@ export default function ConfirmedProvider({
   const [confirmed, setConfirmed] = useState<Confirmed[]>([])
 
   useEffect(() => {
-    const unsubscribe = confirmedRef.onSnapshot((snapshot) => {
+    const unsubscribe = onSnapshot(confirmedRef, (snapshot) => {
       if (snapshot) {
         const data = snapshot.docs.map((doc) => ({
           id: doc.id,

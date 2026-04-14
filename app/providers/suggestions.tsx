@@ -1,4 +1,4 @@
-import firestore from '@react-native-firebase/firestore'
+import { getFirestore, onSnapshot } from '@react-native-firebase/firestore'
 import React, {
   createContext,
   ReactNode,
@@ -26,7 +26,7 @@ const SuggestionsContext = createContext<SuggestionsContextType | undefined>(
   undefined,
 )
 
-const suggestionsRef = firestore().collection('suggestions')
+const suggestionsRef = getFirestore().collection('suggestions')
 
 export default function SuggestionsProvider({
   children,
@@ -36,7 +36,7 @@ export default function SuggestionsProvider({
   const [suggestions, setSuggestions] = useState<Suggestion[]>([])
 
   useEffect(() => {
-    const unsubscribe = suggestionsRef.onSnapshot((snapshot) => {
+    const unsubscribe = onSnapshot(suggestionsRef, (snapshot) => {
       if (snapshot) {
         const data = snapshot.docs.map((doc) => ({
           id: doc.id,
