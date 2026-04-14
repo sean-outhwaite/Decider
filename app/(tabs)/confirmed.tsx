@@ -6,8 +6,8 @@ import { IconSymbol } from '@/components/ui/icon-symbol'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { RootStackParamList } from '../../constants/types'
 import { useConfirmed } from '../providers/confirmed'
-import { RootStackParamList } from '../types'
 
 export default function TabTwoScreen() {
   const { confirmed, archiveConfirmed } = useConfirmed()

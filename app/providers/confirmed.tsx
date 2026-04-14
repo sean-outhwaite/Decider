@@ -1,4 +1,8 @@
-import { getFirestore, onSnapshot } from '@react-native-firebase/firestore'
+import {
+  collection,
+  getFirestore,
+  onSnapshot,
+} from '@react-native-firebase/firestore'
 import React, {
   createContext,
   ReactNode,
@@ -7,7 +11,7 @@ import React, {
   useState,
 } from 'react'
 
-import { Confirmed } from '../types'
+import { Confirmed } from '../../constants/types'
 
 type ConfirmedContextType = {
   confirmed: Confirmed[]
@@ -21,7 +25,8 @@ const ConfirmedContext = createContext<ConfirmedContextType | undefined>(
   undefined,
 )
 
-const confirmedRef = getFirestore().collection('confirmed')
+const db = getFirestore()
+const confirmedRef = collection(db, 'confirmed')
 
 export default function ConfirmedProvider({
   children,

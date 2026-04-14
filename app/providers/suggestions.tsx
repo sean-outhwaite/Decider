@@ -1,4 +1,8 @@
-import { getFirestore, onSnapshot } from '@react-native-firebase/firestore'
+import {
+  collection,
+  getFirestore,
+  onSnapshot,
+} from '@react-native-firebase/firestore'
 import React, {
   createContext,
   ReactNode,
@@ -26,7 +30,8 @@ const SuggestionsContext = createContext<SuggestionsContextType | undefined>(
   undefined,
 )
 
-const suggestionsRef = getFirestore().collection('suggestions')
+const db = getFirestore()
+const suggestionsRef = collection(db, 'suggestions')
 
 export default function SuggestionsProvider({
   children,

@@ -6,10 +6,10 @@ import { ThemedView } from '@/components/themed-view'
 import { IconSymbol } from '@/components/ui/icon-symbol'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../constants/types'
 import { useConfirmed } from '../providers/confirmed'
 import { usePlatform } from '../providers/platform'
 import { useSuggestions } from '../providers/suggestions'
-import { RootStackParamList } from '../types'
 
 export default function HomeScreen() {
   const { suggestions, archiveSuggestion, removeSuggestion } = useSuggestions()

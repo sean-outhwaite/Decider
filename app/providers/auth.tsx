@@ -1,4 +1,8 @@
-import auth, { FirebaseAuthTypes } from '@react-native-firebase/auth'
+import {
+  FirebaseAuthTypes,
+  getAuth,
+  onAuthStateChanged,
+} from '@react-native-firebase/auth'
 import React, {
   createContext,
   ReactNode,
@@ -14,12 +18,12 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null)
   const [initializing, setInitializing] = useState(true)
 
   useEffect(() => {
-    const subscriber = auth().onAuthStateChanged((user) => {
+    const subscriber = onAuthStateChanged(getAuth(), (user) => {
       setUser(user)
       if (initializing) setInitializing(false)
     })

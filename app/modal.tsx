@@ -6,7 +6,7 @@ import { ThemedView } from '@/components/themed-view'
 
 import FullscreenListView from '@/components/fullscreen-list-view'
 import ListItemSwipeable from '@/components/list-item-swipeable'
-import { Confirmed } from './types'
+import { Confirmed } from '../constants/types'
 
 import { useConfirmed } from './providers/confirmed'
 import { usePlatform } from './providers/platform'
