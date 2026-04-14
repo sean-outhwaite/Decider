@@ -1,5 +1,6 @@
 import {
   collection,
+  FirebaseFirestoreTypes,
   getFirestore,
   onSnapshot,
 } from '@react-native-firebase/firestore'
@@ -43,10 +44,12 @@ export default function SuggestionsProvider({
   useEffect(() => {
     const unsubscribe = onSnapshot(suggestionsRef, (snapshot) => {
       if (snapshot) {
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...(doc.data() as Omit<Suggestion, 'id'>),
-        }))
+        const data = snapshot.docs.map(
+          (doc: FirebaseFirestoreTypes.QueryDocumentSnapshot<Suggestion>) => ({
+            id: doc.id,
+            ...(doc.data() as Omit<Suggestion, 'id'>),
+          }),
+        )
         setSuggestions(data as Suggestion[])
       } else {
         console.error('Snapshot is null')

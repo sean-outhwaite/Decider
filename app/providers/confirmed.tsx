@@ -1,5 +1,6 @@
 import {
   collection,
+  FirebaseFirestoreTypes,
   getFirestore,
   onSnapshot,
 } from '@react-native-firebase/firestore'
@@ -38,10 +39,12 @@ export default function ConfirmedProvider({
   useEffect(() => {
     const unsubscribe = onSnapshot(confirmedRef, (snapshot) => {
       if (snapshot) {
-        const data = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...(doc.data() as Omit<Confirmed, 'id'>),
-        }))
+        const data = snapshot.docs.map(
+          (doc: FirebaseFirestoreTypes.QueryDocumentSnapshot<Confirmed>) => ({
+            id: doc.id,
+            ...(doc.data() as Omit<Confirmed, 'id'>),
+          }),
+        )
         setConfirmed(data as Confirmed[])
       } else {
         console.error('Snapshot is null')
