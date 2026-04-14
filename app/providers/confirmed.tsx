@@ -1,5 +1,7 @@
 import {
+  addDoc,
   collection,
+  doc,
   FirebaseFirestoreTypes,
   getFirestore,
   onSnapshot,
@@ -55,19 +57,19 @@ export default function ConfirmedProvider({
   }, [])
 
   const addConfirmed = async (title: string) => {
-    await confirmedRef.add({ title })
+    await addDoc(confirmedRef, { title })
   }
 
   const removeConfirmed = async (id: string) => {
-    await confirmedRef.doc(id).delete()
+    await doc(confirmedRef, id).delete()
   }
 
   const archiveConfirmed = async (id: string) => {
-    await confirmedRef.doc(id).set({ archived: true }, { merge: true })
+    await doc(confirmedRef, id).set({ archived: true }, { merge: true })
   }
 
   const restoreConfirmed = async (id: string) => {
-    await confirmedRef.doc(id).set({ archived: false }, { merge: true })
+    await doc(confirmedRef, id).set({ archived: false }, { merge: true })
   }
 
   return (

@@ -1,5 +1,7 @@
 import {
+  addDoc,
   collection,
+  doc,
   FirebaseFirestoreTypes,
   getFirestore,
   onSnapshot,
@@ -60,19 +62,19 @@ export default function SuggestionsProvider({
   }, [])
 
   const addSuggestion = async (title: string, submittedBy: string) => {
-    await suggestionsRef.add({ title, submittedBy })
+    await addDoc(suggestionsRef, { title, submittedBy })
   }
 
   const removeSuggestion = async (id: string) => {
-    await suggestionsRef.doc(id).delete()
+    await doc(suggestionsRef, id).delete()
   }
 
   const archiveSuggestion = async (id: string) => {
-    await suggestionsRef.doc(id).set({ archived: true }, { merge: true })
+    await doc(suggestionsRef, id).set({ archived: true }, { merge: true })
   }
 
   const restoreSuggestion = async (id: string) => {
-    await suggestionsRef.doc(id).set({ archived: false }, { merge: true })
+    await doc(suggestionsRef, id).set({ archived: false }, { merge: true })
   }
 
   return (
