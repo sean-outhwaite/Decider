@@ -4,8 +4,8 @@ import { StyleSheet, View } from 'react-native'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 
+import FullscreenListView from '@/components/fullscreen-list-view'
 import ListItemSwipeable from '@/components/list-item-swipeable'
-import NewListView from '@/components/new-list-view'
 import { Confirmed } from './types'
 
 import { useConfirmed } from './providers/confirmed'
@@ -34,7 +34,7 @@ export default function ModalScreen() {
   const handleSwipe = Array.isArray(screen) ? () => {} : swipeHandlers[screen]
 
   return (
-    <NewListView>
+    <FullscreenListView>
       <View style={styles.listContainer}>
         {archived.length > 0 ? (
           archived.map((item: Confirmed) => (
@@ -58,7 +58,7 @@ export default function ModalScreen() {
           </ThemedText>
         )}
       </View>
-    </NewListView>
+    </FullscreenListView>
   )
 }
 

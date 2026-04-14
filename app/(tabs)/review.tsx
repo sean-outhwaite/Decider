@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
-import NewListView from '@/components/new-list-view'
+import FullscreenListView from '@/components/fullscreen-list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { IconSymbol } from '@/components/ui/icon-symbol'
@@ -39,7 +39,7 @@ export default function HomeScreen() {
 
   return (
     <>
-      <NewListView>
+      <FullscreenListView>
         <ThemedView style={styles.stepContainer}>
           <ThemedText type="title">
             Review Suggestions<Text style={{ color: '#d99eee' }}>.</Text>
@@ -84,7 +84,7 @@ export default function HomeScreen() {
             )}
           </View>
         </ThemedView>
-      </NewListView>
+      </FullscreenListView>
       <Pressable
         style={styles.fab}
         onPress={() =>

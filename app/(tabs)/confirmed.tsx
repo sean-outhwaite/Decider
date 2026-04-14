@@ -1,5 +1,5 @@
+import FullscreenListView from '@/components/fullscreen-list-view'
 import ListItemSwipeable from '@/components/list-item-swipeable'
-import NewListView from '@/components/new-list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { IconSymbol } from '@/components/ui/icon-symbol'
@@ -24,7 +24,7 @@ export default function TabTwoScreen() {
     useNavigation<NativeStackNavigationProp<RootStackParamList>>()
   return (
     <>
-      <NewListView>
+      <FullscreenListView>
         <ThemedView>
           <ThemedText type="title">
             Ready to Watch<Text style={{ color: '#d99eee' }}>.</Text>
@@ -55,7 +55,7 @@ export default function TabTwoScreen() {
             )}
           </View>
         </ThemedView>
-      </NewListView>
+      </FullscreenListView>
       <Pressable
         style={styles.fab}
         onPress={() =>

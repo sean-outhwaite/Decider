@@ -1,6 +1,6 @@
-import { HelloWave } from '@/components/hello-wave'
 import ListItemSwipeable from '@/components/list-item-swipeable'
 import ListView from '@/components/list-view'
+import { PopcornWave } from '@/components/popcorn-wave'
 import { ThemedTextInput } from '@/components/themed-input'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
@@ -45,7 +45,7 @@ export default function HomeScreen() {
         <ThemedText type="title">
           Decider<Text style={{ color: '#d99eee' }}>.</Text>
         </ThemedText>
-        <HelloWave />
+        <PopcornWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
         <ThemedText type="subtitle">Submit a suggestion</ThemedText>

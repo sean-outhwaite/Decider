@@ -7,7 +7,7 @@ import { useThemeColor } from '@/hooks/use-theme-color'
 type Props = {
   children?: React.ReactNode
 }
-export default function NewListView({ children }: Props) {
+export default function FullscreenListView({ children }: Props) {
   const backgroundColor = useThemeColor({}, 'background')
 
   return (
