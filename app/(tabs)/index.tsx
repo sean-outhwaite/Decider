@@ -37,7 +37,7 @@ export default function HomeScreen() {
       headerImage={
         <Image
           source={require('@/assets/images/splash.png')}
-          style={styles.reactLogo}
+          style={styles.popcornLogo}
         />
       }
     >
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     gap: 8,
     marginBottom: 8,
   },
-  reactLogo: {
+  popcornLogo: {
     height: '100%',
     width: '100%',
     position: 'absolute',
