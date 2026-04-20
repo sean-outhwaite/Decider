@@ -62,7 +62,7 @@ export default function SuggestionsProvider({
   }, [])
 
   const addSuggestion = async (title: string, submittedBy: string) => {
-    await addDoc(suggestionsRef, { title, submittedBy })
+    await addDoc(suggestionsRef, { title, submittedBy, archived: false })
   }
 
   const removeSuggestion = async (id: string) => {

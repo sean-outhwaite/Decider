@@ -57,7 +57,7 @@ export default function ConfirmedProvider({
   }, [])
 
   const addConfirmed = async (title: string) => {
-    await addDoc(confirmedRef, { title })
+    await addDoc(confirmedRef, { title, archived: false })
   }
 
   const removeConfirmed = async (id: string) => {
