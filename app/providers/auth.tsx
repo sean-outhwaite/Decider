@@ -8,6 +8,7 @@ import React, {
   ReactNode,
   useContext,
   useEffect,
+  useRef,
   useState,
 } from 'react'
 
@@ -22,10 +23,12 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null)
   const [initializing, setInitializing] = useState(true)
 
+  const initializingRef = useRef(initializing)
+
   useEffect(() => {
     const subscriber = onAuthStateChanged(getAuth(), (user) => {
       setUser(user)
-      if (initializing) setInitializing(false)
+      if (initializingRef.current) setInitializing(false)
     })
     return subscriber
   }, [])
