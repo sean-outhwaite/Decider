@@ -18,13 +18,13 @@ type IconSymbolName = keyof typeof MAPPING
  */
 const MAPPING = {
   'house.fill': 'home',
-  'paperplane.fill': 'send',
   'chevron.left.forwardslash.chevron.right': 'code',
   'chevron.right': 'chevron-right',
   'list.bullet.clipboard.fill': 'assignment',
   'trash.fill': 'delete',
   'document.on.trash': 'delete-sweep',
   'arrow.clockwise': 'restore',
+  'film.stack.fill': 'movie',
 } as IconMapping
 
 /**

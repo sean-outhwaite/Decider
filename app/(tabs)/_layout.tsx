@@ -23,11 +23,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="confirmed"
+        name="watchlist"
         options={{
-          title: 'Confirmed',
+          title: 'Watchlist',
           tabBarIcon: ({ color }) => (
-            <IconSymbol size={28} name="paperplane.fill" color={color} />
+            <IconSymbol size={28} name="film.stack.fill" color={color} />
           ),
         }}
       />
