@@ -1,9 +1,10 @@
-import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import FullscreenListView from '@/components/fullscreen-list-view'
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
 import { IconSymbol } from '@/components/ui/icon-symbol'
+import Alert from '@blazejkustra/react-native-alert'
 import { useNavigation } from '@react-navigation/native'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../constants/types'
@@ -33,7 +34,9 @@ export default function HomeScreen() {
         text: 'Reject',
         style: 'destructive',
         onPress: (rejectReason: string | undefined) => {
-          itemToReject.rejectionReason = rejectReason || 'No reason provided'
+          if (rejectReason) {
+            itemToReject.rejectionReason = rejectReason
+          }
           archiveSuggestion(itemToReject.id)
         },
       },
