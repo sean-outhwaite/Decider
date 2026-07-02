@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { Alert, Pressable, StyleSheet, Text, View } from 'react-native'
 
 import FullscreenListView from '@/components/fullscreen-list-view'
 import { ThemedText } from '@/components/themed-text'
@@ -24,7 +24,20 @@ export default function HomeScreen() {
   const handleReject = (index: number) => {
     const updatedSuggestions = [...suggestions]
     const itemToReject = updatedSuggestions.splice(index, 1)[0]
-    archiveSuggestion(itemToReject.id)
+    Alert.prompt(`${itemToReject.title}`, `Add reason for rejection?`, [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Reject',
+        style: 'destructive',
+        onPress: (rejectReason: string | undefined) => {
+          itemToReject.rejectionReason = rejectReason || 'No reason provided'
+          archiveSuggestion(itemToReject.id)
+        },
+      },
+    ])
   }
 
   const handleApprove = (index: number) => {

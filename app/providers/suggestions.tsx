@@ -19,6 +19,7 @@ type Suggestion = {
   title: string
   submittedBy: string
   archived?: boolean
+  rejectionReason?: string
 }
 
 type SuggestionsContextType = {
