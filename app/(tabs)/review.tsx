@@ -37,7 +37,7 @@ export default function HomeScreen() {
           if (rejectReason) {
             itemToReject.rejectionReason = rejectReason
           }
-          archiveSuggestion(itemToReject.id)
+          archiveSuggestion(itemToReject.id, itemToReject.rejectionReason)
         },
       },
     ])
