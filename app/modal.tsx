@@ -6,7 +6,7 @@ import { ThemedView } from '@/components/themed-view'
 
 import FullscreenListView from '@/components/fullscreen-list-view'
 import ListItemSwipeable from '@/components/list-item-swipeable'
-import { Confirmed } from '../constants/types'
+import { Confirmed, Suggestion } from '../constants/types'
 
 import { useConfirmed } from './providers/confirmed'
 import { usePlatform } from './providers/platform'
@@ -21,7 +21,7 @@ export default function ModalScreen() {
   const user = usePlatform().platform === 'ios' ? 'Swan' : 'Sab'
 
   // TODO: Move this filtering to the providers
-  const archived =
+  const archived: (Confirmed | Suggestion)[] =
     screen === 'confirmed'
       ? confirmed.filter((item) => item.archived)
       : suggestions.filter((item) => item.archived && item.submittedBy !== user)
@@ -37,7 +37,7 @@ export default function ModalScreen() {
     <FullscreenListView>
       <View style={styles.listContainer}>
         {archived.length > 0 ? (
-          archived.map((item: Confirmed) => (
+          archived.map((item) => (
             <ListItemSwipeable
               actionType="restore"
               key={item.id}
@@ -49,6 +49,11 @@ export default function ModalScreen() {
                 }}
               >
                 <ThemedText style={styles.listItems}>{item.title}</ThemedText>
+                {'rejectionReason' in item && item.rejectionReason && (
+                  <ThemedText style={styles.rejectionReason}>
+                    Rejection Reason: {item.rejectionReason}
+                  </ThemedText>
+                )}
               </ThemedView>
             </ListItemSwipeable>
           ))
@@ -73,5 +78,10 @@ const styles = StyleSheet.create({
   listContainer: {
     width: '100%',
     padding: 10,
+  },
+  rejectionReason: {
+    fontStyle: 'italic',
+    color: '#ccc',
+    paddingLeft: 15,
   },
 })

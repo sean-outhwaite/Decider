@@ -13,14 +13,7 @@ import React, {
   useEffect,
   useState,
 } from 'react'
-
-type Suggestion = {
-  id: string
-  title: string
-  submittedBy: string
-  archived?: boolean
-  rejectionReason?: string | null
-}
+import type { Suggestion } from '../../constants/types'
 
 type SuggestionsContextType = {
   suggestions: Suggestion[]
