@@ -19,14 +19,14 @@ type Suggestion = {
   title: string
   submittedBy: string
   archived?: boolean
-  rejectionReason?: string
+  rejectionReason?: string | null
 }
 
 type SuggestionsContextType = {
   suggestions: Suggestion[]
   addSuggestion: (title: string, submittedBy: string) => void
   removeSuggestion: (id: string) => void
-  archiveSuggestion: (id: string, rejectionReason?: string) => void
+  archiveSuggestion: (id: string, rejectionReason: string | null) => void
   restoreSuggestion: (id: string) => void
 }
 
@@ -70,7 +70,10 @@ export default function SuggestionsProvider({
     await doc(suggestionsRef, id).delete()
   }
 
-  const archiveSuggestion = async (id: string, rejectionReason?: string) => {
+  const archiveSuggestion = async (
+    id: string,
+    rejectionReason: string | null,
+  ) => {
     await doc(suggestionsRef, id).set(
       { archived: true, rejectionReason },
       { merge: true },

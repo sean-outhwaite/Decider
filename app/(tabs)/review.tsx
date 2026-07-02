@@ -34,9 +34,7 @@ export default function HomeScreen() {
         text: 'Reject',
         style: 'destructive',
         onPress: (rejectReason: string | undefined) => {
-          if (rejectReason) {
-            itemToReject.rejectionReason = rejectReason
-          }
+          itemToReject.rejectionReason = rejectReason || null
           archiveSuggestion(itemToReject.id, itemToReject.rejectionReason)
         },
       },
