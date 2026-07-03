@@ -9,7 +9,6 @@ import ListItemSwipeable from '@/components/list-item-swipeable'
 import { Confirmed, Suggestion } from '../constants/types'
 
 import { useConfirmed } from './providers/confirmed'
-import { usePlatform } from './providers/platform'
 import { useSuggestions } from './providers/suggestions'
 
 import { IconSymbol } from '@/components/ui/icon-symbol'
@@ -20,13 +19,11 @@ export default function ModalScreen() {
   const { restoreConfirmed, confirmed } = useConfirmed()
   const { restoreSuggestion, suggestions } = useSuggestions()
 
-  const user = usePlatform().platform === 'ios' ? 'Swan' : 'Sab'
-
   // TODO: Move this filtering to the providers
   const archived: (Confirmed | Suggestion)[] =
     screen === 'confirmed'
       ? confirmed.filter((item) => item.archived)
-      : suggestions.filter((item) => item.archived && item.submittedBy !== user)
+      : suggestions.filter((item) => item.archived)
 
   const swipeHandlers: Record<string, (id: string) => void> = {
     confirmed: restoreConfirmed,
