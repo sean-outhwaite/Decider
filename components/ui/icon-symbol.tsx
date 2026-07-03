@@ -25,6 +25,7 @@ const MAPPING = {
   'document.on.trash': 'delete-sweep',
   'arrow.clockwise': 'restore',
   'film.stack.fill': 'movie',
+  'i.circle': 'info',
 } as IconMapping
 
 /**

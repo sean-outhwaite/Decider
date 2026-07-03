@@ -1,5 +1,5 @@
 import { useLocalSearchParams } from 'expo-router'
-import { StyleSheet, View } from 'react-native'
+import { Alert, Pressable, StyleSheet, View } from 'react-native'
 
 import { ThemedText } from '@/components/themed-text'
 import { ThemedView } from '@/components/themed-view'
@@ -11,6 +11,8 @@ import { Confirmed, Suggestion } from '../constants/types'
 import { useConfirmed } from './providers/confirmed'
 import { usePlatform } from './providers/platform'
 import { useSuggestions } from './providers/suggestions'
+
+import { IconSymbol } from '@/components/ui/icon-symbol'
 
 export default function ModalScreen() {
   const { screen } = useLocalSearchParams()
@@ -50,9 +52,17 @@ export default function ModalScreen() {
               >
                 <ThemedText style={styles.listItems}>{item.title}</ThemedText>
                 {'rejectionReason' in item && item.rejectionReason && (
-                  <ThemedText style={styles.rejectionReason}>
-                    Rejection Reason: {item.rejectionReason}
-                  </ThemedText>
+                  <Pressable
+                    style={styles.fab}
+                    onPress={() =>
+                      Alert.alert(
+                        'Rejection Reason',
+                        item.rejectionReason || undefined,
+                      )
+                    }
+                  >
+                    <IconSymbol color="#d99eee" name="i.circle" size={24} />
+                  </Pressable>
                 )}
               </ThemedView>
             </ListItemSwipeable>
@@ -79,9 +89,13 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 10,
   },
-  rejectionReason: {
-    fontStyle: 'italic',
-    color: '#ccc',
-    paddingLeft: 15,
+  fab: {
+    position: 'absolute',
+    top: 4,
+    right: 5,
+    width: 60,
+    height: 60,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
